@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Profil</title>
+    <link rel="shortcut icon" href="logo_v2_icon.ico" type="image/x-icon">
+    <style>
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: black;
+            display: flex;
+            align-items: center;
+            
+        }
+
+        .logo {
+            width: 2.5cm;
+            margin-right: 10px;
+        }
+
+        .navBar a {
+            color: #ffffff;
+            padding: 6px 15px;
+            border-radius: 10px;
+            margin-inline: 10px;
+            font-size: larger;
+            font-weight: 600;
+            transition: 200ms ease;
+        }
+
+        .navBar a:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        a {
+            text-decoration: none
+        }
+
+        .profPic {
+            width: 2cm;
+            height: auto;
+        }
+
+        .btn {margin: 25% 50%;}
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo"><img class="logo" src="logo.png"></a>
+
+        <nav class="navBar">
+            <a href="index.html">Domů</a>
+            <a href="umelci.html">Umělci</a>
+            <a href="kalendar.html">Kalendář akcí</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+        
+        <a href="profil.html" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
+    </header>
+
+    <!-- css: po .profpic je to header-->
+
+    <button type="button" class="btn" onclick="location.href=`https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley`">Click me!</button>
+</body>
+</html>
