@@ -15,7 +15,7 @@
             background: black;
             display: flex;
             align-items: center;
-            
+            z-index: 2;
         }
 
         .logo {
@@ -52,12 +52,23 @@
             font-weight: 700;
             font-size: 300%;
         }
-
+        .kontaktA {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .kontaktB {margin-bottom: 2cm;}
 
         .nadpisTyp {
             font-weight: 500;
             font-size: 230%;
+        }
+        .adresContent {
+            display: flex;
+            position: relative;
+        }
+        .adresContent iframe {
+            margin-left: 10%;
         }
 
         .kontakty {font-size: x-large;}
@@ -81,10 +92,14 @@
 
     <h1 class="nadpis w3-center">Jak nás můžete kontaktovat?</h1>
     
-    <div class="kontaktA w3-center">
+    <div class="kontaktA">
         <div class="kontaktB">
             <h2 class="nadpisTyp">Adresa:</h2>
-            <p class="kontakty">Tovární 298/74, Dubí 417 02</p>
+            <div class="adresContent">
+                <p class="kontakty">Tovární 298/74, Dubí 417 02</p>
+                <iframe style="border:none" src="https://frame.mapy.cz/s/rezedapeta" width="500" height="333" frameborder="0"></iframe>
+            </div>
+            
         </div>
         <div class="kontaktB">
             <h2 class="nadpisTyp">Telefon:</h2>
