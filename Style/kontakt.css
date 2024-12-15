@@ -1,0 +1,65 @@
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+.logo {
+    width: 2.5cm;
+    margin-right: 10px;
+}
+
+.navBar a {
+    color: #ffffff;
+    padding: 6px 15px;
+    border-radius: 10px;
+    margin-inline: 10px;
+    font-size: larger;
+    font-weight: 600;
+    transition: 200ms ease;
+}
+
+.navBar a:hover, .navBar a.active {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+a {
+    text-decoration: none
+}
+
+.profPic {
+    width: 2cm;
+    height: auto;
+}
+
+.nadpis {
+    margin-top: 3cm;
+    font-weight: 700;
+    font-size: 300%;
+}
+.kontaktA {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.kontaktB {margin-bottom: 2cm;}
+
+.nadpisTyp {
+    font-weight: 500;
+    font-size: 230%;
+}
+.adresContent {
+    display: flex;
+    position: relative;
+}
+.adresContent iframe {
+    margin-left: 10%;
+}
+
+.kontakty {font-size: x-large;}

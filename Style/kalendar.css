@@ -1,0 +1,41 @@
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    
+}
+
+.logo {
+    width: 2.5cm;
+    margin-right: 10px;
+}
+
+.navBar a {
+    color: #ffffff;
+    padding: 6px 15px;
+    border-radius: 10px;
+    margin-inline: 10px;
+    font-size: larger;
+    font-weight: 600;
+    transition: 200ms ease;
+}
+
+.navBar a:hover, .navBar a.active {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+a {
+    text-decoration: none
+}
+
+.profPic {
+    width: 2cm;
+    height: auto;
+}
+
+.btn {margin: 25% 50%;}

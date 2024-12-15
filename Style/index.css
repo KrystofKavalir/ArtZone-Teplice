@@ -1,0 +1,187 @@
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    
+}
+
+.logo {
+    width: 2.5cm;
+    margin-right: 10px;
+}
+
+.navBar a {
+    color: #ffffff;
+    padding: 6px 15px;
+    border-radius: 10px;
+    margin-inline: 10px;
+    font-size: larger;
+    font-weight: 600;
+    transition: 200ms ease;
+}
+
+.navBar a:hover, .navBar a.active{
+    background-color: #ffffff;
+    color: #000000;
+}
+
+a {
+    text-decoration: none
+}
+
+.profPic {
+    width: 2cm;
+    height: auto;
+}
+
+/* login - pujde do vsech souboru */
+
+.profilMain {
+    display: flex;
+    width: 10%;
+    height: 2cm;
+    background-color: white;
+}
+
+.prof {
+    display: flex;
+}
+
+.profPic :hover {
+
+}
+
+/* konec login */
+
+.nadpisA {
+    margin-top: 100px;
+    font-size:350%;
+    font-weight:bold;
+}
+
+.nadpisB {
+    padding-top: 20px;
+    font-size: 550%;
+    font-weight: 800;
+}
+
+.green {color: green;}
+.red {color: red;}
+.blue {color: blue;}
+
+.line {
+    height: 1px;
+    width: 70%;
+    background-color: black;
+    margin: 50px 15%;
+}
+
+
+#nejblAkceDiv {
+    display: flex;
+    margin-left: 10%;
+    margin-top: 1%;
+}
+.nejblAkceNadpis {
+    margin-left: 10%;
+    font-size: 220%;
+    font-weight: 600;
+}
+.nejblAkce {
+    background-color: #dddddd;
+    width: 50%;
+    margin-left: 3%;
+    padding-inline: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+}
+#prvniRadekNejblAkce {display: flex;
+}
+
+
+
+.nazevNejblAkce {
+    font-size: 170%;
+    font-weight: 700;
+}
+.kdyNejblAkce {
+    font-size: 170%;
+    font-weight: 400;
+    width: 100%;
+    text-align: right;
+}
+
+.oCoJde {
+    background-color: #bbbbbb;
+    padding: 1px 15px;
+    border-radius: 8px;
+}
+.oCoJde h4 {
+    font-weight: 600;
+    font-size: 400;
+}
+.nejblAkce button {
+    margin-top: 20px;
+    margin-left: 25%;
+    width: 50%;
+    height: 15%;
+    background-color: #111111;
+    color: #ffffff;
+    font-size: 150%;
+    font-weight: 600;
+    border-radius: 7px;
+    transition: 200ms ease;
+}
+.nejblAkce button:hover {
+    scale: 1.02;
+    cursor: pointer;
+}
+
+.kdoJsme {
+    margin-top: 1.5cm;
+}
+.nadpisKdoJsme {
+    text-align: center;
+    font-size: 350%;
+    font-weight: 700;
+}
+.contentKdoJsme {
+    display: inline-flex;
+}
+.textKdoJsme {
+    width: 90%;
+    margin-left: 7%;
+    margin-top: 2%;
+    font-size: 110%;
+}
+.obrazkyKdoJsme {
+    margin-left: 5%;
+}
+.obrazkyKdoJsme img {
+    border: 2px solid black;
+    border-radius: 10%;
+    width: 35%;
+    margin: 2%;
+}
+
+
+.spolupraceDiv {
+    text-align: center;
+    padding-bottom: 2cm;
+}
+.spolupraceTextA {
+    font-size: 350%;
+    font-weight: 700;
+}
+.spolupraceTextB {
+    font-size: 250%;
+}
+.spolupraceTextB a {
+    text-decoration: underline;
+    font-weight: 500;
+    color: #3366cc;
+}
