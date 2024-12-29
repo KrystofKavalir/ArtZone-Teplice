@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrace</title>
+    <link rel="stylesheet" href="/Style/register.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
+</head>
+<body>
+    <header id="header">
+        <a href="/" class="logo"><img class="logo" src="Img/logo.png"></a>
+
+        <nav class="navBar">
+            <a href="/">Domů</a>
+            <a href="/umelci">Umělci</a>
+            <a href="/kalendar">Kalendář akcí</a>
+            <a href="/kontakt">Kontakt</a>
+        </nav>
+        
+        <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
+    </header>
+
+    <h1>Registrace</h1>
+    <form action="/register" method="POST">
+        <div>
+            <label for="name">Jméno: </label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label for="password">Heslo: </label>
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        <button type="submit">Registrovat</button>
+    </form>
+
+    <div>
+        <h3>Už jste se registrovaly?</h3>
+        <a href="/login">Přihlaste se</a>
+    </div>
+</body>
+</html>
