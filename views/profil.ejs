@@ -23,8 +23,13 @@
     </header>
 
     <!-- css: po .profpic je to header-->
-    <h1 class="jmeno"><%= name %></h1>
-    <form action="/logout?_method=DELETE" method="post">
+    <div class="p1">
+        <h1 class="jmeno">Uživatel <span><%= name %></span></h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus excepturi dignissimos laborum perspiciatis, quibusdam similique illum minima, assumenda nobis eius, expedita totam deleniti voluptatum. Ipsa tempore commodi facere dolorem voluptatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minus eligendi animi minima cupiditate explicabo fugiat est debitis a quasi reprehenderit commodi odio, quos ipsum hic ratione culpa. Ducimus, natus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos harum eum quis quia cum expedita quisquam sunt doloremque enim sapiente nostrum reiciendis, quam doloribus aperiam ducimus omnis placeat quo. Tempore.
+        </p>
+    </div> 
+    <form action="/logout?_method=DELETE" method="post" class="odhlasitBtn">
         <button type="submit">Odhlásit se</button>
     </form>
 </html>

@@ -38,8 +38,37 @@ a {
     height: auto;
 }
 
-.btn {margin: 25% 50%;}
+.p1 {
+    padding-top: 3cm;
+    padding-left: 10%;
+}
 
 .jmeno {
-    padding-top: 2cm;
+    font-weight: 500;
+}
+.jmeno span {
+    font-weight: 700;
+}
+.p1 p {
+    width: 50%;
+    text-align: justify;
+}
+
+.odhlasitBtn {
+    padding-left: 25%;
+    vertical-align: bottom;
+}
+.odhlasitBtn button {
+    width: 20%;
+    height: 50px;
+    font-size: x-large;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #000000;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+
 }
