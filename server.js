@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+const methodOverride = require("method-override");
 
 const initializePassport = require("./passport-config");
 initializePassport(
@@ -30,12 +31,13 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(methodOverride("_method"))
 
 app.use('/Style', express.static(path.join(__dirname, 'style')));
 app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
 app.get("/", (req, res) => {
-    res.render("index.ejs", {name: req.user.name});
+    res.render("index.ejs");
 })
 app.get("/kalendar", (req, res) => {
     res.render("kalendar.ejs");
@@ -43,25 +45,25 @@ app.get("/kalendar", (req, res) => {
 app.get("/kontakt", (req, res) => {
     res.render("kontakt.ejs");
 })
-app.get("/profil", (req, res) => {
-    res.render("profil.ejs");
+app.get("/profil", checkLogIn, (req, res) => {
+    res.render("profil.ejs", {name: req.user.name});
 })
 app.get("/umelci", (req, res) => {
     res.render("umelci.ejs");
 })
-app.get("/login", (req, res) => {
+app.get("/login", checkNoLogIn, (req, res) => {
     res.render("login.ejs");
 })
-app.post("/login", passport.authenticate("local", {
+app.post("/login", checkNoLogIn, passport.authenticate("local", {
     successRedirect: "/profil",
     failureRedirect: "/login",
     failureFlash: true
 }))
 
-app.get("/register", (req, res) => {
+app.get("/register", checkNoLogIn, (req, res) => {
     res.render("register.ejs");
 })
-app.post("/register", async (req, res) => {
+app.post("/register", checkNoLogIn, async (req, res) => {
     try {
         const hashedPass = await bcrypt.hash(req.body.password, 10)
         users.push({
@@ -75,5 +77,29 @@ app.post("/register", async (req, res) => {
         res.redirect("/register")
     }
 })
+
+app.delete("/logout", (req, res) => {
+    req.logOut((err) => {
+        if (err) {
+            return next(err); // Handle error if any
+        }
+        res.redirect("/login"); // Redirect after successful logout
+    });
+});
+
+function checkLogIn (req, res, next) { 
+    if (req.isAuthenticated()) {
+        return next()
+    } else {
+        res.redirect("/login")
+    }
+}
+function checkNoLogIn (req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect("/profil")
+    } else {
+        return next();
+    }
+}
 
 app.listen(3000)

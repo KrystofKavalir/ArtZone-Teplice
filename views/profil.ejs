@@ -23,8 +23,8 @@
     </header>
 
     <!-- css: po .profpic je to header-->
-     <h1 class="jmeno"><%= name %></h1>
-
-    <button type="button" class="btn" onclick="location.href=`https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley`">Click me!</button>
-</body>
+    <h1 class="jmeno"><%= name %></h1>
+    <form action="/logout?_method=DELETE" method="post">
+        <button type="submit">Odhlásit se</button>
+    </form>
 </html>
