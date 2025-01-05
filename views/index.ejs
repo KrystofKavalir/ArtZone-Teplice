@@ -21,11 +21,17 @@
         </nav>
         <!-- pujde do vsech souboru -->
 
-        <div class="profilMain">
+        <div class="profilMain w3-display-right">
             <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
 
             <div class="prof">
-                <a href="/profil"><h4>Nepřihlášn</h4></a> 
+                <h4><% if (name) { %>
+                        <%= name %>
+                    <% } else { %>
+                        Guest
+                    <% } %>
+                </h4>
+                <a href="/profil">Přihlásit se</a>
             </div>
         </div>
 

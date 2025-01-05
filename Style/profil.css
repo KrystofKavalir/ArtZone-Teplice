@@ -63,12 +63,14 @@ a {
     height: 50px;
     font-size: x-large;
     font-weight: 600;
-    color: #ffffff;
-    background-color: #000000;
-    border-radius: 12px;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    -ms-border-radius: 12px;
-    -o-border-radius: 12px;
-
+    color: #1c1c1c;
+    background-color: #ececec;
+    border-style:groove;
+    border-color: #5e5e5e;
+    border-radius: 10px;
+}
+.odhlasitBtn button:hover {
+    cursor: pointer;
+    background-color: #bfbfbf;
+    transition: 100ms ease;
 }

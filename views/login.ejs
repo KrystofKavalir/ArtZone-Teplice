@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/Style/login.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
+    
 </head>
 <body>
     <header id="header">
@@ -22,28 +23,32 @@
         <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
     </header>
     
-    <h1>Přihlaste se</h1>
+    <div class="main w3-center">
+        <h1>Přihlaste se</h1>
 
-    <% if(messages.error) { %>
-        <%= messages.error %>
-    <% } %>
+        <% if(messages.error) { %>
+            <%= messages.error %>
+        <% } %>
 
-    <form action="/login" method="POST">
+        <form action="/login" method="POST">
+            <div>
+                <label for="email">Email: </label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div>
+                <label for="password">Heslo: </label>
+                <input type="password" name="password" id="password" required>
+            </div>
+
+            <button type="submit" class="submit">Přihlásit se</button>
+        </form>
+
         <div>
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email" required>
+            <h3>Chcete se k nám přidat?</h3>
+            <a href="/register">Registrujte se</a>
         </div>
-        <div>
-            <label for="password">Heslo: </label>
-            <input type="password" name="password" id="password" required>
-        </div>
-
-        <button type="submit">Přihlásit se</button>
-    </form>
-
-    <div>
-        <h3>Chcete se zaregistrovat?</h3>
-        <a href="/register">Registrujte se zde</a>
     </div>
+
+    
 </body>
 </html>

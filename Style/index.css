@@ -42,17 +42,30 @@ a {
 
 .profilMain {
     display: flex;
-    width: 10%;
+    width: 2cm;
     height: 2cm;
     background-color: white;
+    border-radius: 100px;
+    transition: 300ms ease;
+    font-size: 0;
+}
+.profilMain:hover {
+    width: 300px;
+    transition: 300ms ease;
+    font-size:initial;
 }
 
 .prof {
-    display: flex;
+    max-width: fit-content;
+    margin-left: 20px;
+    margin-right: auto;
 }
-
-.profPic :hover {
-
+.prof a {
+    margin-left: 10px;
+    padding: 3px;
+}
+.prof h4 {
+    font-weight: 500;
 }
 
 /* konec login */

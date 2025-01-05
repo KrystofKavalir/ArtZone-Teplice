@@ -2,6 +2,7 @@ if(process.env.NODE_ENV !== "production"){
     require("dotenv").config()
 }
 
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -14,6 +15,7 @@ const methodOverride = require("method-override");
 /*const database = require("ArtZone-Teplice/connection");*/
 
 const initializePassport = require("./passport-config");
+const { name } = require("ejs");
 initializePassport(
     passport,
     email => users.find(user => user.email === email),
@@ -39,7 +41,11 @@ app.use('/Style', express.static(path.join(__dirname, 'style')));
 app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    let name = null;
+    if (req.isAuthenticated()) {
+        name = req.user.name;
+    }
+    res.render("index.ejs", {name: name});
 })
 app.get("/kalendar", (req, res) => {
     res.render("kalendar.ejs");
