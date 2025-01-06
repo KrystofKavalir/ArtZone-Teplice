@@ -22,8 +22,20 @@
             <a href="/kontakt" class="active">Kontakt</a>
         </nav>
         
-        <a href="/profil" class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
-    </header>
+
+        <div class="profilMain w3-display-right">
+            <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
+
+            <div class="prof">
+                <h4><% if (name) { %>
+                        <%= name %>
+                    <% } else { %>
+                        Uživatel
+                    <% } %>
+                </h4>
+                <a href="/profil">Přihlásit se</a>
+            </div>
+        </div>    </header>
 
     <!-- css: po .profpic je to header-->
 

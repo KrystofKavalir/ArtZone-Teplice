@@ -28,10 +28,14 @@
                 <h4><% if (name) { %>
                         <%= name %>
                     <% } else { %>
-                        Guest
+                        Uživatel
                     <% } %>
                 </h4>
-                <a href="/profil">Přihlásit se</a>
+                <a href="/profil"><% if (name) { %>
+                    Profil
+                <% } else { %>
+                    Přihlásit se
+                <% } %></a>
             </div>
         </div>
 

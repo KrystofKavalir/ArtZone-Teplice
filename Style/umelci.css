@@ -38,4 +38,52 @@ a {
     height: auto;
 }
 
+/* login - pujde do vsech souboru */
+
+.profilMain {
+    display: flex;
+    width: 2cm;
+    height: 2cm;
+    background-color: white;
+    border-radius: 100px;
+    transition: 300ms ease;
+    font-size: 0;
+    .prof {
+        transition: 100ms ease;
+        visibility: hidden;
+    }
+}
+.profilMain:hover {
+    width: 300px;
+    transition: 300ms ease;
+    font-size:initial;
+    .prof {
+        visibility: visible;
+    }
+}
+
+.prof {
+    max-width: fit-content;
+    margin-left: 20px;
+    margin-right: auto;
+}
+.prof a {
+    margin-left: 10px;
+    padding: 3px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    border: 1px ridge #111111;
+}
+.prof a:hover {
+    background-color: #bbbbbb;
+    transition: 50ms ease;
+}
+.prof h4 {
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* konec login */
+
 .btn {margin: 25% 50%;}

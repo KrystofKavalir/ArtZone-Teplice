@@ -48,16 +48,28 @@ app.get("/", (req, res) => {
     res.render("index.ejs", {name: name});
 })
 app.get("/kalendar", (req, res) => {
-    res.render("kalendar.ejs");
+    let name = null;
+    if (req.isAuthenticated()) {
+        name = req.user.name;
+    }
+    res.render("kalendar.ejs", {name: name});
 })
 app.get("/kontakt", (req, res) => {
-    res.render("kontakt.ejs");
+    let name = null;
+    if (req.isAuthenticated()) {
+        name = req.user.name;
+    }
+    res.render("kontakt.ejs", {name: name});
 })
 app.get("/profil", checkLogIn, (req, res) => {
     res.render("profil.ejs", {name: req.user.name});
 })
 app.get("/umelci", (req, res) => {
-    res.render("umelci.ejs");
+    let name = null;
+    if (req.isAuthenticated()) {
+        name = req.user.name;
+    }
+    res.render("umelci.ejs", {name: name});
 })
 app.get("/login", checkNoLogIn, (req, res) => {
     res.render("login.ejs");
