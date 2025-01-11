@@ -30,8 +30,11 @@
                         Uživatel
                     <% } %>
                 </h4>
-                <a href="/profil">Přihlásit se</a>
-            </div>
+                <a href="/profil"><% if (name) { %>
+                    Profil
+                <% } else { %>
+                    Přihlásit se
+                <% } %></a>            </div>
         </div>    </header>
 
     <!-- css: po .profpic je to header-->

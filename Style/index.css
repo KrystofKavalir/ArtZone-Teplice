@@ -51,7 +51,7 @@ a {
     .prof {
         transition: 100ms ease;
         visibility: hidden;
-}
+    }
 }
 .profilMain:hover {
     width: 300px;
@@ -59,7 +59,7 @@ a {
     font-size:initial;
     .prof {
         visibility: visible;
-}
+    }
 }
 
 .prof {
