@@ -1,3 +1,7 @@
+body {
+    background-image: url(/Img/Background1.jpg);
+}
+
 #header {
     position: fixed;
     top: 0;
@@ -55,18 +59,20 @@ a {
     font-size: 1.1rem;
 }
 .main form {
-    background-color: #ececec;
-    border-style:groove;
-    padding: 2%;
-    border-radius: 5px;
+    border-style:none;
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(3px);
+    border: 2px solid #cccccc;
 }
 .submit {
-    margin-top: 5%;
+    margin-top: 7%;
     border-style:initial;
-    border-radius: 4px;
+    border-radius: 10px;
     background-color: #00c600;
     width: 90%;
     margin-bottom: 4%;
+    padding: 2%;
 }
 .submit:hover {
     background-color: #008b00;
@@ -75,12 +81,15 @@ a {
 }
 .main input {
     width: 90%;
+    border-radius: 10px;
+    border: 1px solid #aeaeae;
+    padding-left: 5px;
 }
 
 .main a {
     padding: 2%;
     background-color: rgb(200, 200, 200);
-    border-radius: 4px;
+    border-radius: 10px;
 }
 .main a:hover {
     background-color: rgb(150, 150, 150);

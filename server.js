@@ -56,36 +56,26 @@ app.use(methodOverride("_method"));
 app.use('/Style', express.static(path.join(__dirname, 'style')));
 app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
+// Middleware to set the name variable
+app.use((req, res, next) => {
+    res.locals.name = req.isAuthenticated() ? req.user.name : null;
+    next();
+});
+
 app.get("/", (req, res) => {
-    let name = null;
-    if (req.isAuthenticated()) {
-        name = req.user.name;
-    }
-    res.render("index.ejs", {name: name});
+    res.render("index.ejs", {name: res.locals.name});
 })
 app.get("/kalendar", (req, res) => {
-    let name = null;
-    if (req.isAuthenticated()) {
-        name = req.user.name;
-    }
-    res.render("kalendar.ejs", {name: name});
+    res.render("kalendar.ejs", {name: res.locals.name});
 })
 app.get("/kontakt", (req, res) => {
-    let name = null;
-    if (req.isAuthenticated()) {
-        name = req.user.name;
-    }
-    res.render("kontakt.ejs", {name: name});
+    res.render("kontakt.ejs", {name: res.locals.name});
 })
 app.get("/profil", checkLogIn, (req, res) => {
-    res.render("profil.ejs", {name: req.user.name});
+    res.render("profil.ejs", {name: res.locals.name});
 })
 app.get("/umelci", (req, res) => {
-    let name = null;
-    if (req.isAuthenticated()) {
-        name = req.user.name;
-    }
-    res.render("umelci.ejs", {name: name});
+    res.render("umelci.ejs", {name: res.locals.name});
 })
 app.get("/login", checkNoLogIn, (req, res) => {
     res.render("login.ejs");
