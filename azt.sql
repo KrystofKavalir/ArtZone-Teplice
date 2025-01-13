@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Úte 26. lis 2024, 15:35
+-- Vytvořeno: Pon 13. led 2025, 17:58
 -- Verze serveru: 10.4.28-MariaDB
 -- Verze PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Databáze: `artzone teplice`
+-- Databáze: `azt`
 --
 
 -- --------------------------------------------------------
@@ -95,6 +95,8 @@ CREATE TABLE `typ` (
 CREATE TABLE `uzivatel` (
   `id` int(11) NOT NULL,
   `jmeno` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `heslo` varchar(128) NOT NULL,
   `profilFoto_id` int(11) DEFAULT NULL,
   `role_id` int(11) NOT NULL,
   `akce_id` int(11) DEFAULT NULL

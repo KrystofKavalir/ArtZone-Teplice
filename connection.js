@@ -4,13 +4,14 @@ const connection = mysql.createConnection({
     database: "azt",
     user: "root",
     password: ""
-})
+});
 
 connection.connect(function(error) {
     if (error) {
-        throw error;
-    } else {
-        console.log("DB connected");
+        console.error("Error connecting to the database:", error);
+        return;
     }
+    console.log("DB connected");
 });
+
 module.exports = connection;

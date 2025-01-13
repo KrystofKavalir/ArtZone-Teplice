@@ -1,7 +1,6 @@
-if(process.env.NODE_ENV !== "production"){
-    require("dotenv").config()
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
 }
-
 
 const express = require("express");
 const app = express();
@@ -11,15 +10,31 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-
-/*const database = require("ArtZone-Teplice/connection");*/
+const connection = require("./connection"); // Import the database connection
 
 const initializePassport = require("./passport-config");
-const { name } = require("ejs");
 initializePassport(
     passport,
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id)
+    email => {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT * FROM uzivatel WHERE email = ?', [email], (error, results) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results[0]);
+            });
+        });
+    },
+    id => {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT * FROM uzivatel WHERE id = ?', [id], (error, results) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results[0]);
+            });
+        });
+    }
 );
 
 //jenom pro testovaci ucely, bude napojeno na DTBS
@@ -27,17 +42,17 @@ const users = []
 
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-app.use(flash())
+app.use(flash());
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
-}))
+}));
 
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride("_method"))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride("_method"));
 app.use('/Style', express.static(path.join(__dirname, 'style')));
 app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
@@ -86,16 +101,15 @@ app.get("/register", checkNoLogIn, (req, res) => {
 })
 app.post("/register", checkNoLogIn, async (req, res) => {
     try {
-        const hashedPass = await bcrypt.hash(req.body.password, 10)
-        users.push({
-            id: Date.now().toString(), //s DTSB neni potreba
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPass
-        })
-        res.redirect("/login")
+        const hashedPass = await bcrypt.hash(req.body.password, 10);
+        connection.query('INSERT INTO uzivatel (jmeno, email, heslo) VALUES (?, ?, ?)', [req.body.name, req.body.email, hashedPass], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.redirect("/login");
+        });
     } catch {
-        res.redirect("/register")
+        res.redirect("/register");
     }
 })
 
