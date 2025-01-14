@@ -66,7 +66,17 @@ app.get("/", (req, res) => {
     res.render("index.ejs", {name: res.locals.name});
 })
 app.get("/kalendar", (req, res) => {
-    res.render("kalendar.ejs", {name: res.locals.name});
+    connection.query('SELECT * FROM akce', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        const events = results.map(event => ({
+            title: event.title,
+            start: event.start,
+            end: event.end
+        }));
+        res.render("kalendar.ejs", { events });
+    });
 })
 app.get("/kontakt", (req, res) => {
     res.render("kontakt.ejs", {name: res.locals.name});

@@ -7,6 +7,18 @@
     <title>Kalendář akcí</title>
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/kalendar.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: <%= JSON.stringify(events || []) %>
+            });
+            calendar.render();
+        });
+    </script>
 </head>
 <body>
     <header id="header">
@@ -27,18 +39,13 @@
                 <h4><% if (name) { %>
                         <%= name %>
                     <% } else { %>
-                        Uživatel
+                        <a href="/login">Přihlásit se</a>
                     <% } %>
                 </h4>
-                <a href="/profil"><% if (name) { %>
-                    Profil
-                <% } else { %>
-                    Přihlásit se
-                <% } %></a>            </div>
-        </div>    </header>
+            </div>
+        </div>
+    </header>
 
-    <!-- css: po .profpic je to header-->
-
-    <button type="button" class="btn" onclick="location.href=`https://www.youtube.com/watch?v=o-YBDTqX_ZU&ab_channel=MusRest`">Click me!</button>
+    <div id='calendar'></div>
 </body>
 </html>

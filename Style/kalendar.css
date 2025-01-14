@@ -86,4 +86,9 @@ a {
 
 /* konec login */
 
-.btn {margin: 25% 50%;}
+#calendar {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 150px;
+    background-color: #bbbbbb
+}
