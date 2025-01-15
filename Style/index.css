@@ -6,7 +6,7 @@
     background: black;
     display: flex;
     align-items: center;
-    
+    z-index: 5;
 }
 
 .logo {
@@ -186,6 +186,7 @@ a {
     margin-left: 7%;
     margin-top: 2%;
     font-size: 110%;
+    text-align: justify;
 }
 .obrazkyKdoJsme {
     margin-left: 5%;
@@ -213,4 +214,149 @@ a {
     text-decoration: underline;
     font-weight: 500;
     color: #3366cc;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #000000;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .navBar {
+        display: none;
+    }
+
+    .openbtn {
+        display: block;
+    }
+
+
+
+}
+
+@media screen and (max-width: 1200px) {
+    .textKdoJsme {
+        font-size: 85%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .spolupraceTextA {
+        font-size: 280%;
+    }
+    .spolupraceTextB {
+        font-size: 200%;
+    }
+
+    .nadpisA {
+        font-size: 300%;
+    }
+    .nadpisB {
+        font-size: 500%;
+    }
+
+    #nejblAkceDiv {
+        margin-left: 5%;
+        scale: 0.9;
+        z-index: 1;
+
+        /* pouze pro testovani */
+        display: none;
+    }
+
+    .textKdoJsme {
+        width: 200%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nadpisA {
+        font-size: 250%;
+    }
+    .nadpisB {
+        font-size: 350%;
+    }
+
+    .spolupraceTextA {
+        font-size: 230%;
+    }
+    .spolupraceTextB {
+        font-size: 160%;
+    }
+
+    .textKdoJsme {
+        width: 250%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .nadpisA {
+        font-size: 200%;
+    }
+    .nadpisB {
+        font-size: 260%;
+    }
+
+    .spolupraceTextA {
+        font-size: 200%;
+    }
+    .spolupraceTextB {
+        font-size: 150%;
+    }
+
+    .textKdoJsme {
+        font-size: 75%;
+        width: 80%;
+    }
+    .contentKdoJsme {
+        display: block;
+        align-items: justify;
+    }
+    .obrazkyKdoJsme {
+        width: 80%;
+    }
 }

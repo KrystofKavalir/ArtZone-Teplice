@@ -15,7 +15,7 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
-                locale: 'cs', // Nastavení jazyka na češtinu
+                locale: 'cs',
                 events: <%- JSON.stringify(events || []) %>,
 
                 headerToolbar: {
@@ -23,11 +23,22 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                firstDay: 1, // Sets Monday as the first day of the week
-                contentHeight: 'auto', // Makes the calendar height responsive
+                firstDay: 1,
+                contentHeight: 'auto',
+                aspectRatio: 1.5,
             });
             calendar.render();
         });
+
+
+
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
     </script>
 </head>
 <body>
@@ -40,6 +51,8 @@
             <a href="/kalendar" class="active">Kalendář akcí</a>
             <a href="/kontakt">Kontakt</a>
         </nav>
+
+        <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         
         <div class="profilMain w3-display-right">
             <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
@@ -54,6 +67,16 @@
             </div>
         </div>
     </header>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Domů</a>
+        <a href="/umelci">Umělci</a>
+        <a href="/kalendar" class="active">Kalendář akcí</a>
+        <a href="/kontakt">Kontakt</a>
+    </div>
+
+
 
     <div id='calendar'></div>
 </body>

@@ -6,7 +6,7 @@
     background: black;
     display: flex;
     align-items: center;
-    
+    z-index: 2;
 }
 
 .logo {
@@ -30,15 +30,13 @@
 }
 
 a {
-    text-decoration: none
+    text-decoration: none;
 }
 
 .profPic {
     width: 2cm;
     height: auto;
 }
-
-/* login - pujde do vsech souboru */
 
 .profilMain {
     display: flex;
@@ -48,25 +46,26 @@ a {
     border-radius: 100px;
     transition: 300ms ease;
     font-size: 0;
-    .prof {
-        transition: 100ms ease;
-        visibility: hidden;
-    }
 }
+
 .profilMain:hover {
     width: 300px;
     transition: 300ms ease;
-    font-size:initial;
-    .prof {
-        visibility: visible;
-    }
+    font-size: initial;
 }
 
 .prof {
     max-width: fit-content;
     margin-left: 20px;
     margin-right: auto;
+    transition: 100ms ease;
+    visibility: hidden;
 }
+
+.profilMain:hover .prof {
+    visibility: visible;
+}
+
 .prof a {
     margin-left: 10px;
     padding: 3px;
@@ -74,19 +73,18 @@ a {
     border-radius: 5px;
     border: 1px ridge #111111;
 }
+
 .prof a:hover {
     background-color: #bbbbbb;
     transition: 50ms ease;
 }
+
 .prof h4 {
     font-weight: 500;
     margin-left: 10px;
     margin-top: 5px;
 }
 
-/* konec login */
-
-/* filepath: /D:/Artzone/ArtZone-Teplice/Style/kalendar.css */
 #calendar {
     max-width: 800px;
     margin: 0 auto;
@@ -95,6 +93,7 @@ a {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
 }
 
 .fc-toolbar {
@@ -150,4 +149,63 @@ a {
 
 .fc-daygrid-event:hover {
     background-color: #0056b3;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #000000;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .navBar {
+        display: none;
+    }
+
+    .openbtn {
+        display: block;
+    }
 }

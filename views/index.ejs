@@ -7,7 +7,15 @@
     <title>ArtZone Teplice</title>
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/index.css">
-    <script src="js/index.js"></script>
+<script>
+    function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+    }
+</script>
 </head>
 <body>
     <header id="header">
@@ -19,6 +27,8 @@
             <a href="/kalendar">Kalendář akcí</a>
             <a href="/kontakt">Kontakt</a>
         </nav>
+
+        <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         <!-- pujde do vsech souboru -->
 
         <div class="profilMain w3-display-right">
@@ -42,6 +52,14 @@
         <!-- konec -->
     </header>
 
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Domů</a>
+        <a href="/umelci">Umělci</a>
+        <a href="/kalendar" class="active">Kalendář akcí</a>
+        <a href="/kontakt">Kontakt</a>
+    </div>
     <!-- css: po .profpic je to header-->
 
 
@@ -74,10 +92,7 @@
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate exercitationem, nemo iusto placeat aliquid rem veritatis ad commodi! Numquam eveniet eaque omnis quasi voluptatum nam saepe nisi voluptatem voluptatibus facere!
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati perferendis temporibus maxime laudantium praesentium, voluptatibus laboriosam dolorem iusto rerum, molestiae ipsa commodi unde. Voluptatem ipsa, deleniti iusto exercitationem in inventore!
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere eveniet nemo non aliquid nihil deleniti aliquam, perspiciatis dolorum quo reiciendis necessitatibus impedit sit officiis laudantium. Sunt similique eveniet consequuntur deleniti.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate exercitationem, nemo iusto placeat aliquid rem veritatis ad commodi! Numquam eveniet eaque omnis quasi voluptatum nam saepe nisi voluptatem voluptatibus facere!
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati perferendis temporibus maxime laudantium praesentium, voluptatibus laboriosam dolorem iusto rerum, molestiae ipsa commodi unde. Voluptatem ipsa, deleniti iusto exercitationem in inventore!
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere eveniet nemo non aliquid nihil deleniti aliquam, perspiciatis dolorum quo reiciendis necessitatibus impedit sit officiis laudantium. Sunt similique eveniet consequuntur deleniti.
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere eveniet nemo non aliquid nihil deleniti aliquam, perspiciatis dolorum quo reiciendis necessitatibus impedit sit officiis laudantium. Sunt similique eveniet consequuntur deleniti.
+                
             </p>
             <div class="obrazkyKdoJsme">
                 <img src="/Img/test_img.jpg" alt="">

@@ -7,9 +7,15 @@
     <title>Kontakt</title>
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/kontakt.css">
-    <style>
-
-    </style>
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
 </head>
 <body>
     <header id="header">
@@ -21,6 +27,8 @@
             <a href="/kalendar">Kalendář akcí</a>
             <a href="/kontakt" class="active">Kontakt</a>
         </nav>
+
+        <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         
 
         <div class="profilMain w3-display-right">
@@ -37,8 +45,18 @@
                     Profil
                 <% } else { %>
                     Přihlásit se
-                <% } %></a>            </div>
-        </div>    </header>
+                <% } %></a>            
+            </div>
+        </div>    
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Domů</a>
+        <a href="/umelci">Umělci</a>
+        <a href="/kalendar" class="active">Kalendář akcí</a>
+        <a href="/kontakt">Kontakt</a>
+    </div>
 
     <!-- css: po .profpic je to header-->
 
