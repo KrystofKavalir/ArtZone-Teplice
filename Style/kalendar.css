@@ -86,9 +86,68 @@ a {
 
 /* konec login */
 
+/* filepath: /D:/Artzone/ArtZone-Teplice/Style/kalendar.css */
 #calendar {
     max-width: 800px;
     margin: 0 auto;
     margin-top: 150px;
-    background-color: #bbbbbb
+    background-color: #bbbbbb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fc-toolbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+}
+
+.fc-toolbar h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.fc-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.fc-button:hover {
+    background-color: #555;
+}
+
+.fc-button-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.fc-button-primary:hover {
+    background-color: #0056b3;
+}
+
+.fc-daygrid-day {
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.fc-daygrid-day:hover {
+    background-color: #f0f0f0;
+}
+
+.fc-daygrid-event {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.fc-daygrid-event:hover {
+    background-color: #0056b3;
 }
