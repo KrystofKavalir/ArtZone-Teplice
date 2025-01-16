@@ -59,7 +59,7 @@ app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
 // Middleware to set the name variable
 app.use((req, res, next) => {
-    res.locals.name = req.isAuthenticated() ? req.user.name : null;
+    res.locals.name = req.isAuthenticated() ? req.user.jmeno : null;
     next();
 });
 

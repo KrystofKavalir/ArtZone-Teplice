@@ -349,14 +349,14 @@ a {
     }
 
     .textKdoJsme {
-        font-size: 75%;
-        width: 80%;
+        font-size: 95%;
+        width: 86%;
     }
     .contentKdoJsme {
         display: block;
         align-items: justify;
     }
-    .obrazkyKdoJsme {
-        width: 80%;
+    .obrazkyKdoJsme img {
+        width: 43%;
     }
 }

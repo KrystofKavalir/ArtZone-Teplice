@@ -7,15 +7,6 @@
     <title>Profil</title>
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/profil.css">
-    <script>
-        function openNav() {
-            document.getElementById("sidebar").style.width = "250px";
-        }
-    
-        function closeNav() {
-            document.getElementById("sidebar").style.width = "0";
-        }
-    </script>
 </head>
 <body>
     <header id="header">
@@ -44,11 +35,34 @@
     <!-- css: po .profpic je to header-->
     <div class="p1">
         <h1 class="jmeno">Uživatel <span><%= name %></span></h1>
-        <p>
+        <div class="upPart">
+                    <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus excepturi dignissimos laborum perspiciatis, quibusdam similique illum minima, assumenda nobis eius, expedita totam deleniti voluptatum. Ipsa tempore commodi facere dolorem voluptatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis minus eligendi animi minima cupiditate explicabo fugiat est debitis a quasi reprehenderit commodi odio, quos ipsum hic ratione culpa. Ducimus, natus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos harum eum quis quia cum expedita quisquam sunt doloremque enim sapiente nostrum reiciendis, quam doloribus aperiam ducimus omnis placeat quo. Tempore.
         </p>
-    </div> 
-    <form action="/logout?_method=DELETE" method="post" class="odhlasitBtn">
-        <button type="submit">Odhlásit se</button>
-    </form>
+            <img src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt="">
+        </div>
+
+
+    </div>
+
+    <div class="btns">
+        <form action="/logout?_method=DELETE" method="post" class="odhlasitBtn">
+            <button type="submit">Odhlásit se</button>
+        </form>
+        <form action="" class="odhlasitBtn">
+            <button type="submit">Upravit</button>
+        </form>
+
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
+</body>
 </html>

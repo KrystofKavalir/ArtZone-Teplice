@@ -1,5 +1,6 @@
 body {
     background-image: url(/Img/Background1.jpg);
+    background-size:cover;
 }
 
 #header {
@@ -153,4 +154,30 @@ a {
     .openbtn {
         display: block;
     }
+}
+
+@media screen and (max-width: 600px) {
+    .main {
+        scale: 1;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    .main {
+        margin-top: 2cm;
+        scale: 1;
+    }
+}
+@media screen and (max-height: 520px) {
+    .main {
+        margin-top: 1cm;
+        scale: 0.8;
+    }
+}
+@media screen and (max-height: 440px) {
+    .main {
+        margin-top: 0.1cm;
+        scale: 0.6;
+    }
+    
 }

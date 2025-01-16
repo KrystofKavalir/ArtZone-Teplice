@@ -19,9 +19,9 @@
                 events: <%- JSON.stringify(events || []) %>,
 
                 headerToolbar: {
-                    left: 'prev,next today',
+                    left: 'today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    right: 'prev,next'
                 },
                 firstDay: 1,
                 contentHeight: 'auto',
@@ -61,9 +61,14 @@
                 <h4><% if (name) { %>
                         <%= name %>
                     <% } else { %>
-                        <a href="/login">Přihlásit se</a>
+                        Uživatel
                     <% } %>
                 </h4>
+                <a href="/profil"><% if (name) { %>
+                    Profil
+                <% } else { %>
+                    Přihlásit se
+                <% } %></a>
             </div>
         </div>
     </header>
