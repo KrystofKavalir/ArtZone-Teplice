@@ -138,6 +138,9 @@ a {
     transform: translateX(-50%);
 }
 
+body {
+    font-family: 'Open Sans', sans-serif;
+}
 
 @media screen and (max-width: 992px) {
     .p1 {

@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/Style/login_register.css">
-    <title>Registrace</title>
+    <link rel="stylesheet" href="/Style/adminEditAkce.css">
+    <title>Upravit akci</title>
     <script>
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
         }
-    
+
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
         }
@@ -42,31 +42,37 @@
         <a href="/kontakt">Kontakt</a>
     </div>
 
-    <div class="main w3-center">
-        <h1>Registrace</h1>
-        <form action="/register" method="POST">
-            <div>
-                <label for="name">Jméno: </label>
-                <input type="text" name="name" id="name" required>
+    <main>
+        <h1>Upravit akci</h1>
+        <form action="/adminEditAkce" method="post">
+            <div class="uprCasti">
+                <label for="title">Název akce:</label>
+                <input type="text" id="title" name="title" placeholder="<%= event.title %>" value="<%= event.title %>" required>
             </div>
-            <div>
-                <label for="email">Email: </label>
-                <input type="email" name="email" id="email" required>
+            <div class="uprCasti">
+                <label for="start">Začátek:</label>
+                <input type="datetime-local" id="start" name="start" placeholder="<%= event.start %>" value="<%= event.start %>" required>
             </div>
-            <div>
-                <label for="password">Heslo: </label>
-                <input type="password" name="password" id="password" required>
+            <div class="uprCasti">
+                <label for="end">Konec:</label>
+                <input type="datetime-local" id="end" name="end" placeholder="<%= event.end %>" value="<%= event.end %>">
             </div>
-    
-            <button type="submit" class="submit">Registrovat</button>
+            <div class="uprCasti">
+                <label for="misto">Místo:</label>
+                <input type="text" id="misto" name="misto" placeholder="<%= event.misto %>" value="<%= event.misto %>">
+            </div>
+            <div class="uprCasti">
+                <label for="podrobnosti">Podrobnosti:</label>
+                <textarea id="podrobnosti" name="podrobnosti" placeholder="<%= event.podrobnosti %>"><%= event.podrobnosti %></textarea>
+            </div>
+            <div class="uprCasti">
+                <label for="pro_koho">Pro koho:</label>
+                <input type="text" id="pro_koho" name="pro_koho" placeholder="<%= event.pro_koho %>" value="<%= event.pro_koho %>">
+            </div>
+            <div class="uprCasti">
+                <button type="submit">Uložit změny</button>
+            </div>
         </form>
-    
-        <div>
-            <h3>Už jste se registroval/a?</h3>
-            <a href="/login">Přihlaste se</a>
-        </div>
-    </div>
-
-
+    </main>
 </body>
 </html>

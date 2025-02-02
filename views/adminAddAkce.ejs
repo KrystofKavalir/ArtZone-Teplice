@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/Style/login_register.css">
-    <title>Přihlásit se</title>
+    <link rel="stylesheet" href="/Style/adminAddAkce.css">
+    <title>Přidat akci</title>
     <script>
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
         }
-    
+
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
         }
@@ -41,33 +41,38 @@
         <a href="/kalendar" class="active">Kalendář akcí</a>
         <a href="/kontakt">Kontakt</a>
     </div>
-    
-    <div class="main w3-center">
-        <h1>Přihlaste se</h1>
 
-        <% if(messages.error) { %>
-            <%= messages.error %>
-        <% } %>
-
-        <form action="/login" method="POST">
-            <div>
-                <label for="email">Email: </label>
-                <input type="email" name="email" id="email" required>
+    <main>
+        <h1>Přidat akci</h1>
+        <form action="/adminAddAkce" method="post">
+            <div class="uprCasti">
+                <label for="title">Název akce:</label>
+                <input type="text" id="title" name="title" required>
             </div>
-            <div>
-                <label for="password">Heslo: </label>
-                <input type="password" name="password" id="password" required>
+            <div class="uprCasti">
+                <label for="start">Začátek:</label>
+                <input type="datetime-local" id="start" name="start" required>
             </div>
-
-            <button type="submit" class="submit">Přihlásit se</button>
+            <div class="uprCasti">
+                <label for="end">Konec:</label>
+                <input type="datetime-local" id="end" name="end">
+            </div>
+            <div class="uprCasti">
+                <label for="misto">Místo:</label>
+                <input type="text" id="misto" name="misto">
+            </div>
+            <div class="uprCasti">
+                <label for="podrobnosti">Podrobnosti:</label>
+                <textarea id="podrobnosti" name="podrobnosti"></textarea>
+            </div>
+            <div class="uprCasti">
+                <label for="pro_koho">Pro koho:</label>
+                <input type="text" id="pro_koho" name="pro_koho">
+            </div>
+            <div class="uprCasti">
+                <button type="submit">Přidat akci</button>
+            </div>
         </form>
-
-        <div>
-            <h3>Chcete se k nám přidat?</h3>
-            <a href="/register">Registrujte se</a>
-        </div>
-    </div>
-
-    
+    </main>
 </body>
 </html>

@@ -1,6 +1,5 @@
+
 body {
-    background-image: url(/Img/Background3.jpg);
-    background-size:cover;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -12,7 +11,7 @@ body {
     background: black;
     display: flex;
     align-items: center;
-    
+    z-index: 5;
 }
 
 .logo {
@@ -30,7 +29,7 @@ body {
     transition: 200ms ease;
 }
 
-.navBar a:hover {
+.navBar a:hover, .navBar a.active{
     background-color: #ffffff;
     color: #000000;
 }
@@ -44,60 +43,52 @@ a {
     height: auto;
 }
 
-.main {
-    position: fixed;
-    inset: 0;
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
-    scale: 1.3;
-
-    
+.profilMain {
+    display: flex;
+    width: 2cm;
+    height: 2cm;
+    background-color: white;
+    border-radius: 100px;
+    transition: 300ms ease;
+    font-size: 0;
 }
-.main h1 {
+
+.profilMain:hover {
+    width: 300px;
+    transition: 300ms ease;
+    font-size: initial;
+}
+
+.prof {
+    max-width: fit-content;
+    margin-left: 20px;
+    margin-right: auto;
+    transition: 100ms ease;
+    visibility: hidden;
+}
+
+.profilMain:hover .prof {
+    visibility: visible;
+}
+
+.prof a {
+    margin-left: 10px;
+    padding: 3px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    border: 1px ridge #111111;
+}
+
+.prof a:hover {
+    background-color: #bbbbbb;
+    transition: 50ms ease;
+}
+
+.prof h4 {
     font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
 }
-.main label {
-    font-size: 1.1rem;
-}
-.main form {
-    border-style:none;
-    padding: 30px;
-    border-radius: 25px;
-    backdrop-filter: blur(3px);
-    border: 2px solid #cccccc;
-}
-.submit {
-    margin-top: 7%;
-    border-style:initial;
-    border-radius: 10px;
-    background-color: #00c600;
-    width: 90%;
-    margin-bottom: 4%;
-    padding: 2%;
-}
-.submit:hover {
-    background-color: #008b00;
-    transition: 50ms ease;
-    cursor: pointer;
-}
-.main input {
-    width: 90%;
-    border-radius: 10px;
-    border: 1px solid #aeaeae;
-    padding-left: 5px;
-}
-
-.main a {
-    padding: 2%;
-    background-color: rgb(200, 200, 200);
-    border-radius: 10px;
-}
-.main a:hover {
-    background-color: rgb(150, 150, 150);
-    transition: 50ms ease;
-}
-
 /* Sidebar styles */
 .sidebar {
     height: 100%;
@@ -116,7 +107,7 @@ a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #f1f1f1;
+    color: #818181;
     display: block;
     transition: 0.3s;
 }
@@ -136,7 +127,7 @@ a {
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #000000;
+    background-color: #111;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -144,6 +135,29 @@ a {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.uprH1 {
+    margin-bottom: 50px;
+}
+
+main {
+    margin-top: 100px;
+    margin-left: 20%;
+    margin-right: 40%;
+    margin-bottom: 100px;
+}
+
+.uprCasti {
+    margin-bottom: 20px;
+}
+.uprCasti input, .uprCasti textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
 }
 
 /* Media query for smaller screens */
@@ -157,28 +171,5 @@ a {
     }
 }
 
-@media screen and (max-width: 600px) {
-    .main {
-        scale: 1;
-    }
-}
 
-@media screen and (max-height: 650px) {
-    .main {
-        margin-top: 2cm;
-        scale: 1;
-    }
-}
-@media screen and (max-height: 520px) {
-    .main {
-        margin-top: 1cm;
-        scale: 0.8;
-    }
-}
-@media screen and (max-height: 440px) {
-    .main {
-        margin-top: 0.1cm;
-        scale: 0.6;
-    }
-    
-}
+/* Add other styles here */

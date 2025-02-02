@@ -57,10 +57,28 @@ app.use(methodOverride("_method"));
 app.use('/Style', express.static(path.join(__dirname, 'style')));
 app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
-// Middleware to set the name variable
+// Middleware to set the name and roleName variables
 app.use((req, res, next) => {
-    res.locals.name = req.isAuthenticated() ? req.user.jmeno : null;
-    next();
+    if (req.isAuthenticated()) {
+        connection.query('SELECT role.nazev, uzivatel.popis, uzivatel.email, uzivatel.role_id FROM role JOIN uzivatel ON role.id = uzivatel.role_id WHERE uzivatel.id = ?', [req.user.id], (error, results) => {
+            if (error) {
+                return next(error);
+            }
+            res.locals.name = req.user.jmeno;
+            res.locals.roleName = results[0].nazev;
+            res.locals.description = results[0].popis || "uživatel nemá popis";
+            res.locals.email = results[0].email;
+            res.locals.roleId = results[0].role_id;
+            next();
+        });
+    } else {
+        res.locals.name = null;
+        res.locals.roleName = null;
+        res.locals.description = null;
+        res.locals.email = null;
+        res.locals.roleId = null;
+        next();
+    }
 });
 
 app.get("/", (req, res) => {
@@ -83,8 +101,46 @@ app.get("/kontakt", (req, res) => {
     res.render("kontakt.ejs", {name: res.locals.name});
 })
 app.get("/profil", checkLogIn, (req, res) => {
-    res.render("profil.ejs", {name: res.locals.name});
+    res.render("profil.ejs", { name: res.locals.name, roleName: res.locals.roleName, description: res.locals.description });
 })
+app.get("/profilEdit", checkLogIn, (req, res) => {
+    res.render("profilEdit.ejs", { name: res.locals.name, roleName: res.locals.roleName, description: res.locals.description });
+});
+app.post("/profilEdit", checkLogIn, async (req, res) => {
+    let { name, description, email, password, confirmPassword } = req.body;
+
+    // Pokud je pole prázdné, použijeme aktuální hodnotu
+    name = name || res.locals.name;
+    description = description || res.locals.description;
+    email = email || res.locals.email;
+
+    if (password && password !== confirmPassword) {
+        req.flash("error", "Hesla se neshodují!");
+        return res.redirect("/profilEdit");
+    }
+
+    try {
+        if (password) {
+            const hashedPass = await bcrypt.hash(password, 10);
+            connection.query('UPDATE uzivatel SET jmeno = ?, popis = ?, email = ?, heslo = ? WHERE id = ?', [name, description, email, hashedPass, req.user.id], (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                res.redirect("/profil");
+            });
+        } else {
+            connection.query('UPDATE uzivatel SET jmeno = ?, popis = ?, email = ? WHERE id = ?', [name, description, email, req.user.id], (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                res.redirect("/profil");
+            });
+        }
+    } catch (error) {
+        req.flash("error", "Nastala chyba při aktualizaci profilu!");
+        res.redirect("/profilEdit");
+    }
+});
 app.get("/umelci", (req, res) => {
     res.render("umelci.ejs", {name: res.locals.name});
 })
@@ -120,6 +176,76 @@ app.delete("/logout", (req, res) => {
             return next(err); // Handle error if any
         }
         res.redirect("/login"); // Redirect after successful logout
+    });
+});
+
+app.get("/adminSettings", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 1) {
+        connection.query('SELECT title FROM akce', (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.render("adminSettings.ejs", { name: res.locals.name, events: results });
+        });
+    } else {
+        res.redirect("/profil");
+    }
+});
+
+app.get("/adminAddAkce", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 1) {
+        res.render("adminAddAkce.ejs", { name: res.locals.name });
+    } else {
+        res.redirect("/profil");
+    }
+});
+
+app.post("/adminAddAkce", checkLogIn, (req, res) => {
+    const { title, start, end, misto, podrobnosti, pro_koho } = req.body;
+
+    connection.query('INSERT INTO akce (title, start, end, misto, podrobnosti, pro_koho) VALUES (?, ?, ?, ?, ?, ?)', [title, start, end, misto, podrobnosti, pro_koho], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.redirect("/adminSettings");
+    });
+});
+
+app.get("/adminEditAkce", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 1) {
+        const { eventTitle } = req.query;
+        connection.query('SELECT * FROM akce WHERE title = ?', [eventTitle], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.render("adminEditAkce.ejs", { name: res.locals.name, event: results[0] });
+        });
+    } else {
+        res.redirect("/profil");
+    }
+});
+
+app.post("/adminEditAkce", checkLogIn, (req, res) => {
+    let { title, start, end, misto, podrobnosti, pro_koho } = req.body;
+
+    // Pokud je pole prázdné, použijeme aktuální hodnotu
+    connection.query('SELECT * FROM akce WHERE title = ?', [title], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        const event = results[0];
+        start = start || event.start;
+        end = end || event.end;
+        misto = misto || event.misto;
+        podrobnosti = podrobnosti || event.podrobnosti;
+        pro_koho = pro_koho || event.pro_koho;
+
+        connection.query('UPDATE akce SET start = ?, end = ?, misto = ?, podrobnosti = ?, pro_koho = ? WHERE title = ?', [start, end, misto, podrobnosti, pro_koho, title], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.redirect("/adminSettings");
+        });
     });
 });
 

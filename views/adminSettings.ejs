@@ -6,17 +6,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/Style/login_register.css">
-    <title>Přihlásit se</title>
-    <script>
-        function openNav() {
-            document.getElementById("sidebar").style.width = "250px";
-        }
-    
-        function closeNav() {
-            document.getElementById("sidebar").style.width = "0";
-        }
-    </script>
+    <link rel="stylesheet" href="/Style/adminSettings.css">
+    <title>Administrace</title>
 </head>
 <body>
     <header id="header">
@@ -41,33 +32,29 @@
         <a href="/kalendar" class="active">Kalendář akcí</a>
         <a href="/kontakt">Kontakt</a>
     </div>
-    
-    <div class="main w3-center">
-        <h1>Přihlaste se</h1>
 
-        <% if(messages.error) { %>
-            <%= messages.error %>
-        <% } %>
-
-        <form action="/login" method="POST">
-            <div>
-                <label for="email">Email: </label>
-                <input type="email" name="email" id="email" required>
-            </div>
-            <div>
-                <label for="password">Heslo: </label>
-                <input type="password" name="password" id="password" required>
-            </div>
-
-            <button type="submit" class="submit">Přihlásit se</button>
+    <main>
+        <h1>Administrace</h1>
+        <a href="/adminAddAkce" class="btn-add-akce">Přidat akci</a>
+        <form action="/adminEditAkce" method="get" class="form-edit-akce">
+            <label for="eventTitle">Vyberte akci k úpravě:</label>
+            <select id="eventTitle" name="eventTitle" required>
+                <% events.forEach(event => { %>
+                    <option value="<%= event.title %>"><%= event.title %></option>
+                <% }) %>
+            </select>
+            <button type="submit" class="btn-edit-akce">Upravit akci</button>
         </form>
+    </main>
 
-        <div>
-            <h3>Chcete se k nám přidat?</h3>
-            <a href="/register">Registrujte se</a>
-        </div>
-    </div>
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
 
-    
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
 </body>
 </html>

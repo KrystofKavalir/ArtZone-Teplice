@@ -209,3 +209,9 @@ a {
         display: block;
     }
 }
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Add other styles here */
