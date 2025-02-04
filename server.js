@@ -38,7 +38,6 @@ initializePassport(
     }
 );
 
-//jenom pro testovaci ucely, bude napojeno na DTBS
 const users = []
 
 app.set("view-engine", "ejs");
@@ -57,7 +56,6 @@ app.use(methodOverride("_method"));
 app.use('/Style', express.static(path.join(__dirname, 'style')));
 app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
-// Middleware to set the name and roleName variables
 app.use((req, res, next) => {
     if (req.isAuthenticated()) {
         connection.query('SELECT role.nazev, uzivatel.popis, uzivatel.email, uzivatel.role_id FROM role JOIN uzivatel ON role.id = uzivatel.role_id WHERE uzivatel.id = ?', [req.user.id], (error, results) => {
@@ -109,7 +107,6 @@ app.get("/profilEdit", checkLogIn, (req, res) => {
 app.post("/profilEdit", checkLogIn, async (req, res) => {
     let { name, description, email, password, confirmPassword } = req.body;
 
-    // Pokud je pole prázdné, použijeme aktuální hodnotu
     name = name || res.locals.name;
     description = description || res.locals.description;
     email = email || res.locals.email;
@@ -226,26 +223,13 @@ app.get("/adminEditAkce", checkLogIn, (req, res) => {
 });
 
 app.post("/adminEditAkce", checkLogIn, (req, res) => {
-    let { title, start, end, misto, podrobnosti, pro_koho } = req.body;
+    const { id, title, start, end, misto, podrobnosti, pro_koho } = req.body;
 
-    // Pokud je pole prázdné, použijeme aktuální hodnotu
-    connection.query('SELECT * FROM akce WHERE title = ?', [title], (error, results) => {
+    connection.query('UPDATE akce SET title = ?, start = ?, end = ?, misto = ?, podrobnosti = ?, pro_koho = ? WHERE id = ?', [title, start, end, misto, podrobnosti, pro_koho, id], (error, results) => {
         if (error) {
             throw error;
         }
-        const event = results[0];
-        start = start || event.start;
-        end = end || event.end;
-        misto = misto || event.misto;
-        podrobnosti = podrobnosti || event.podrobnosti;
-        pro_koho = pro_koho || event.pro_koho;
-
-        connection.query('UPDATE akce SET start = ?, end = ?, misto = ?, podrobnosti = ?, pro_koho = ? WHERE title = ?', [start, end, misto, podrobnosti, pro_koho, title], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.redirect("/adminSettings");
-        });
+        res.redirect("/adminSettings");
     });
 });
 

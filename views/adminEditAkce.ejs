@@ -8,15 +8,6 @@
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/adminEditAkce.css">
     <title>Upravit akci</title>
-    <script>
-        function openNav() {
-            document.getElementById("sidebar").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("sidebar").style.width = "0";
-        }
-    </script>
 </head>
 <body>
     <header id="header">
@@ -44,35 +35,44 @@
 
     <main>
         <h1>Upravit akci</h1>
-        <form action="/adminEditAkce" method="post">
+        <form action="/adminEditAkce" method="post" class="form-edit-akce">
+            <input type="hidden" name="id" value="<%= event.id %>">
             <div class="uprCasti">
                 <label for="title">Název akce:</label>
-                <input type="text" id="title" name="title" placeholder="<%= event.title %>" value="<%= event.title %>" required>
+                <input type="text" id="title" name="title" value="<%= event.title %>" required>
             </div>
             <div class="uprCasti">
-                <label for="start">Začátek:</label>
-                <input type="datetime-local" id="start" name="start" placeholder="<%= event.start %>" value="<%= event.start %>" required>
+                <label for="start">Začátek akce:</label>
+                <input type="date" id="start" name="start" value="<%= event.start %>" required>
             </div>
             <div class="uprCasti">
-                <label for="end">Konec:</label>
-                <input type="datetime-local" id="end" name="end" placeholder="<%= event.end %>" value="<%= event.end %>">
+                <label for="end">Konec akce:</label>
+                <input type="date" id="end" name="end" value="<%= event.end %>">
             </div>
             <div class="uprCasti">
                 <label for="misto">Místo:</label>
-                <input type="text" id="misto" name="misto" placeholder="<%= event.misto %>" value="<%= event.misto %>">
+                <input type="text" id="misto" name="misto" value="<%= event.misto %>">
             </div>
             <div class="uprCasti">
                 <label for="podrobnosti">Podrobnosti:</label>
-                <textarea id="podrobnosti" name="podrobnosti" placeholder="<%= event.podrobnosti %>"><%= event.podrobnosti %></textarea>
+                <textarea id="podrobnosti" name="podrobnosti"><%= event.podrobnosti %></textarea>
             </div>
             <div class="uprCasti">
                 <label for="pro_koho">Pro koho:</label>
-                <input type="text" id="pro_koho" name="pro_koho" placeholder="<%= event.pro_koho %>" value="<%= event.pro_koho %>">
+                <input type="text" id="pro_koho" name="pro_koho" value="<%= event.pro_koho %>">
             </div>
-            <div class="uprCasti">
-                <button type="submit">Uložit změny</button>
-            </div>
+            <button type="submit" class="btn-edit-akce">Upravit akci</button>
         </form>
     </main>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
 </body>
 </html>
