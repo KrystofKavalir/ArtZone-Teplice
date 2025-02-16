@@ -12,7 +12,7 @@
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
         }
-    
+
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
         }
@@ -45,8 +45,10 @@
     <div class="main w3-center">
         <h1>Přihlaste se</h1>
 
-        <% if(messages.error) { %>
-            <%= messages.error %>
+        <% if (messages.error) { %>
+            <div class="error">
+                <%= messages.error %>
+            </div>
         <% } %>
 
         <form action="/login" method="POST">
@@ -67,7 +69,5 @@
             <a href="/register">Registrujte se</a>
         </div>
     </div>
-
-    
 </body>
 </html>

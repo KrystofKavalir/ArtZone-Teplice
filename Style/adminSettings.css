@@ -140,6 +140,20 @@ a {
 main {
     margin-top: 3cm;
     margin-left: 20%;
+    margin-right: 20%;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-section {
+    width: 45%;
+}
+
+.right-section {
+    width: 45%;
 }
 
 .btn-add-akce {
@@ -206,6 +220,41 @@ main {
 }
 
 .btn-edit-akce:hover {
+    cursor: pointer;
+    background-color: #bfbfbf;
+    transition: 100ms ease;
+}
+
+.user-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-authorize {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    font-size: medium;
+    font-weight: 600;
+    color: #1c1c1c;
+    background-color: #ececec;
+    border-style: groove;
+    border-color: #5e5e5e;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.btn-authorize:hover {
     cursor: pointer;
     background-color: #bfbfbf;
     transition: 100ms ease;

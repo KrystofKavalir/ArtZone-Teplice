@@ -157,17 +157,35 @@ app.get("/register", checkNoLogIn, (req, res) => {
     res.render("register.ejs");
 })
 app.post("/register", checkNoLogIn, async (req, res) => {
-    try {
-        const hashedPass = await bcrypt.hash(req.body.password, 10);
-        connection.query('INSERT INTO uzivatel (jmeno, email, heslo) VALUES (?, ?, ?)', [req.body.name, req.body.email, hashedPass], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.redirect("/login");
-        });
-    } catch {
-        res.redirect("/register");
+    const { name, email, password } = req.body;
+
+    if (password.length < 8) {
+        req.flash("error", "Heslo musí mít alespoň 8 znaků");
+        return res.redirect("/register");
     }
+
+    connection.query('SELECT * FROM uzivatel WHERE email = ?', [email], async (error, results) => {
+        if (error) {
+            throw error;
+        }
+        if (results.length > 0) {
+            req.flash("error", "Uživatel s tímto emailem již existuje");
+            return res.redirect("/register");
+        }
+
+        try {
+            const hashedPass = await bcrypt.hash(password, 10);
+            connection.query('INSERT INTO uzivatel (jmeno, email, heslo, authorized) VALUES (?, ?, ?, ?)', [name, email, hashedPass, 0], (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                req.flash("success", "Účet vytvořen, vyčkejte na potvrzení administrátorem");
+                res.redirect("/login");
+            });
+        } catch {
+            res.redirect("/register");
+        }
+    });
 })
 
 app.delete("/logout", (req, res) => {
@@ -181,11 +199,30 @@ app.delete("/logout", (req, res) => {
 
 app.get("/adminSettings", checkLogIn, (req, res) => {
     if (res.locals.roleId === 1) {
-        connection.query('SELECT title FROM akce', (error, results) => {
+        connection.query('SELECT title FROM akce', (error, events) => {
             if (error) {
                 throw error;
             }
-            res.render("adminSettings.ejs", { name: res.locals.name, events: results });
+            connection.query('SELECT id, jmeno, email FROM uzivatel WHERE role_id = 2 AND authorized = 0', (error, users) => {
+                if (error) {
+                    throw error;
+                }
+                res.render("adminSettings.ejs", { name: res.locals.name, events, users });
+            });
+        });
+    } else {
+        res.redirect("/profil");
+    }
+});
+
+app.post("/authorizeUser", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 1) {
+        const { userId } = req.body;
+        connection.query('UPDATE uzivatel SET authorized = 1 WHERE id = ?', [userId], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.redirect("/adminSettings");
         });
     } else {
         res.redirect("/profil");

@@ -35,16 +35,34 @@
 
     <main>
         <h1>Administrace</h1>
-        <a href="/adminAddAkce" class="btn-add-akce">Přidat akci</a>
-        <form action="/adminEditAkce" method="get" class="form-edit-akce">
-            <label for="eventTitle">Vyberte akci k úpravě:</label>
-            <select id="eventTitle" name="eventTitle" required>
-                <% events.forEach(event => { %>
-                    <option value="<%= event.title %>"><%= event.title %></option>
-                <% }) %>
-            </select>
-            <button type="submit" class="btn-edit-akce">Upravit akci</button>
-        </form>
+        <div class="content">
+            <div class="left-section">
+                <a href="/adminAddAkce" class="btn-add-akce">Přidat akci</a>
+                <form action="/adminEditAkce" method="get" class="form-edit-akce">
+                    <label for="eventTitle">Vyberte akci k úpravě:</label>
+                    <select id="eventTitle" name="eventTitle" required>
+                        <% events.forEach(event => { %>
+                            <option value="<%= event.title %>"><%= event.title %></option>
+                        <% }) %>
+                    </select>
+                    <button type="submit" class="btn-edit-akce">Upravit akci</button>
+                </form>
+            </div>
+            <div class="right-section">
+                <h2>Čekající uživatelé</h2>
+                <ul class="user-list">
+                    <% users.forEach(user => { %>
+                        <li>
+                            <span><%= user.jmeno %> (<%= user.email %>)</span>
+                            <form action="/authorizeUser" method="post" style="display:inline;">
+                                <input type="hidden" name="userId" value="<%= user.id %>">
+                                <button type="submit" class="btn-authorize">Potvrdit</button>
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
     </main>
 
     <script>
