@@ -14,6 +14,10 @@ function initialize(passport, getUserByEmail, getUserById) {
 
             const user = results[0];
 
+            if (user.role_id !== 1 && !user.authorized) {
+                return done(null, false, { message: "Účet nebyl zatím schválen" });
+            }
+
             try {
                 if (await bcrypt.compare(password, user.heslo)) {
                     return done(null, user);
