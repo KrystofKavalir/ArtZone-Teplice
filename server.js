@@ -204,7 +204,12 @@ app.get("/adminSettings", checkLogIn, (req, res) => {
                 if (error) {
                     throw error;
                 }
-                res.render("adminSettings.ejs", { name: res.locals.name, events, users });
+                connection.query('SELECT id, jmeno, email FROM uzivatel', (error, allUsers) => {
+                    if (error) {
+                        throw error;
+                    }
+                    res.render("adminSettings.ejs", { name: res.locals.name, events, users, allUsers });
+                });
             });
         });
     } else {
@@ -268,6 +273,52 @@ app.post("/adminEditAkce", checkLogIn, (req, res) => {
         }
         res.redirect("/adminSettings");
     });
+});
+
+app.get("/adminEditUzivatel", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 1) {
+        const { userId } = req.query;
+        connection.query('SELECT * FROM uzivatel WHERE id = ?', [userId], (error, results) => {
+            if (error) {
+                throw error;
+            }
+            const user = results[0];
+            connection.query('SELECT * FROM role', (error, roles) => {
+                if (error) {
+                    throw error;
+                }
+                res.render("adminEditUzivatel.ejs", { user, roles });
+            });
+        });
+    } else {
+        res.redirect("/profil");
+    }
+});
+
+app.post("/adminEditUzivatel", checkLogIn, async (req, res) => {
+    const { id, name, email, password, description, role } = req.body;
+
+    try {
+        if (password) {
+            const hashedPass = await bcrypt.hash(password, 10);
+            connection.query('UPDATE uzivatel SET jmeno = ?, email = ?, heslo = ?, popis = ?, role_id = ? WHERE id = ?', [name, email, hashedPass, description, role, id], (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                res.redirect("/adminSettings");
+            });
+        } else {
+            connection.query('UPDATE uzivatel SET jmeno = ?, email = ?, popis = ?, role_id = ? WHERE id = ?', [name, email, description, role, id], (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                res.redirect("/adminSettings");
+            });
+        }
+    } catch (error) {
+        req.flash("error", "Nastala chyba při aktualizaci uživatele!");
+        res.redirect("/adminEditUzivatel?userId=" + id);
+    }
 });
 
 function checkLogIn (req, res, next) { 

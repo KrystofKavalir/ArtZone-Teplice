@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/Style/adminEditUzivatel.css">
+    <title>Upravit uživatele</title>
+</head>
+<body>
+    <header id="header">
+        <a href="/" class="logo"><img class="logo" src="Img/logo.png"></a>
+
+        <nav class="navBar">
+            <a href="/">Domů</a>
+            <a href="/umelci">Umělci</a>
+            <a href="/kalendar">Kalendář akcí</a>
+            <a href="/kontakt">Kontakt</a>
+        </nav>
+
+        <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
+        
+        <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Domů</a>
+        <a href="/umelci">Umělci</a>
+        <a href="/kalendar" class="active">Kalendář akcí</a>
+        <a href="/kontakt">Kontakt</a>
+    </div>
+
+    <main>
+        <h1>Upravit uživatele</h1>
+        <form action="/adminEditUzivatel" method="post" class="form-edit-uzivatel">
+            <input type="hidden" name="id" value="<%= user.id %>">
+            <div class="form-group">
+                <label for="name">Jméno:</label>
+                <input type="text" id="name" name="name" value="<%= user.jmeno %>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= user.email %>" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Heslo:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="description">Popis:</label>
+                <textarea id="description" name="description"><%= user.popis %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <% roles.forEach(role => { %>
+                        <option value="<%= role.id %>" <%= user.role_id === role.id ? 'selected' : '' %>><%= role.nazev %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <button type="submit" class="submit">Uložit změny</button>
+        </form>
+    </main>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
+</body>
+</html>

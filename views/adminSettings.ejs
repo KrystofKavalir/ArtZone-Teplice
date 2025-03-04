@@ -47,6 +47,19 @@
                     </select>
                     <button type="submit" class="btn-edit-akce">Upravit akci</button>
                 </form>
+                <h2>Upravit uživatele</h2>
+                <% if (messages.error) { %>
+                    <div class="alert alert-error">
+                        <%= messages.error %>
+                    </div>
+                <% } %>
+                <form action="/adminEditUzivatel" method="get" class="form-edit-uzivatel" onsubmit="return validateUserSelection()">
+                    <label for="userSearch">Vyhledat uživatele:</label>
+                    <input type="text" id="userSearch" onkeyup="filterUsers()" placeholder="Vyhledat uživatele...">
+                    <div id="userSuggestions" class="suggestions"></div>
+                    <input type="hidden" id="userId" name="userId" required>
+                    <button type="submit" class="btn-edit-uzivatel">Upravit uživatele</button>
+                </form>
             </div>
             <div class="right-section">
                 <h2>Čekající uživatelé</h2>
@@ -72,6 +85,38 @@
 
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
+        }
+
+        function filterUsers() {
+            const searchInput = document.getElementById('userSearch').value.toLowerCase();
+            const userSuggestions = document.getElementById('userSuggestions');
+            userSuggestions.innerHTML = '';
+            const users = <%- JSON.stringify(allUsers) %>;
+            users.forEach(user => {
+                const userText = `${user.jmeno} (${user.email})`.toLowerCase();
+                if (userText.includes(searchInput)) {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'suggestion';
+                    suggestion.textContent = `${user.jmeno} (${user.email})`;
+                    suggestion.onclick = () => selectUser(user.id, user.jmeno, user.email);
+                    userSuggestions.appendChild(suggestion);
+                }
+            });
+        }
+
+        function selectUser(id, name, email) {
+            document.getElementById('userId').value = id;
+            document.getElementById('userSearch').value = `${name} (${email})`;
+            document.getElementById('userSuggestions').innerHTML = '';
+        }
+
+        function validateUserSelection() {
+            const userId = document.getElementById('userId').value;
+            if (!userId) {
+                alert("Prosím, vyberte uživatele k úpravě.");
+                return false;
+            }
+            return true;
         }
     </script>
 </body>
