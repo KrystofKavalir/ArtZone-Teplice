@@ -156,6 +156,29 @@ main {
     resize: vertical;
 }
 
+.btn-add-akce {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    font-size: x-large;
+    font-weight: 600;
+    color: #1c1c1c;
+    background-color: #ececec;
+    border-style: groove;
+    border-color: #5e5e5e;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.btn-add-akce:hover {
+    cursor: pointer;
+    background-color: #bfbfbf;
+    transition: 100ms ease;
+}
+
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
     .navBar {

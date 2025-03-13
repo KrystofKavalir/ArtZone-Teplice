@@ -196,7 +196,7 @@ app.delete("/logout", (req, res) => {
 
 app.get("/adminSettings", checkLogIn, (req, res) => {
     if (res.locals.roleId === 1) {
-        connection.query('SELECT title FROM akce', (error, events) => {
+        connection.query('SELECT title, start FROM akce ORDER BY start ASC', (error, events) => {
             if (error) {
                 throw error;
             }
@@ -257,7 +257,10 @@ app.get("/adminEditAkce", checkLogIn, (req, res) => {
             if (error) {
                 throw error;
             }
-            res.render("adminEditAkce.ejs", { name: res.locals.name, event: results[0] });
+            const event = results[0];
+            event.start = event.start ? new Date(event.start).toISOString().slice(0, 16) : '';
+            event.end = event.end ? new Date(event.end).toISOString().slice(0, 16) : '';
+            res.render("adminEditAkce.ejs", { name: res.locals.name, event });
         });
     } else {
         res.redirect("/profil");

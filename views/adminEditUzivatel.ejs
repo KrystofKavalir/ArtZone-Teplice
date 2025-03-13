@@ -37,23 +37,23 @@
         <h1>Upravit uživatele</h1>
         <form action="/adminEditUzivatel" method="post" class="form-edit-uzivatel">
             <input type="hidden" name="id" value="<%= user.id %>">
-            <div class="form-group">
+            <div class="uprCasti">
                 <label for="name">Jméno:</label>
                 <input type="text" id="name" name="name" value="<%= user.jmeno %>" required>
             </div>
-            <div class="form-group">
+            <div class="uprCasti">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" value="<%= user.email %>" required>
             </div>
-            <div class="form-group">
+            <div class="uprCasti">
                 <label for="password">Heslo:</label>
                 <input type="password" id="password" name="password">
             </div>
-            <div class="form-group">
+            <div class="uprCasti">
                 <label for="description">Popis:</label>
                 <textarea id="description" name="description"><%= user.popis %></textarea>
             </div>
-            <div class="form-group">
+            <div class="uprCasti">
                 <label for="role">Role:</label>
                 <select id="role" name="role" required>
                     <% roles.forEach(role => { %>
@@ -61,7 +61,7 @@
                     <% }) %>
                 </select>
             </div>
-            <button type="submit" class="submit">Uložit změny</button>
+            <button type="submit" class="btn-edit-uzivatel">Uložit změny</button>
         </form>
     </main>
 

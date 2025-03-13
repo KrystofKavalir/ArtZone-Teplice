@@ -38,26 +38,15 @@
         <div class="content">
             <div class="left-section">
                 <a href="/adminAddAkce" class="btn-add-akce">Přidat akci</a>
-                <form action="/adminEditAkce" method="get" class="form-edit-akce">
-                    <label for="eventTitle">Vyberte akci k úpravě:</label>
-                    <select id="eventTitle" name="eventTitle" required>
-                        <% events.forEach(event => { %>
-                            <option value="<%= event.title %>"><%= event.title %></option>
+                <button type="button" class="btn-edit-akce" onclick="openEventOverlay()">Upravit akci</button>
+                <h2>Upravit uživatele</h2>
+                <form action="/adminEditUzivatel" method="get" class="form-edit-uzivatel">
+                    <label for="userId">Vyberte uživatele:</label>
+                    <select id="userId" name="userId" required>
+                        <% allUsers.forEach(user => { %>
+                            <option value="<%= user.id %>"><%= user.jmeno %> (<%= user.email %>)</option>
                         <% }) %>
                     </select>
-                    <button type="submit" class="btn-edit-akce">Upravit akci</button>
-                </form>
-                <h2>Upravit uživatele</h2>
-                <% if (messages.error) { %>
-                    <div class="alert alert-error">
-                        <%= messages.error %>
-                    </div>
-                <% } %>
-                <form action="/adminEditUzivatel" method="get" class="form-edit-uzivatel" onsubmit="return validateUserSelection()">
-                    <label for="userSearch">Vyhledat uživatele:</label>
-                    <input type="text" id="userSearch" onkeyup="filterUsers()" placeholder="Vyhledat uživatele...">
-                    <div id="userSuggestions" class="suggestions"></div>
-                    <input type="hidden" id="userId" name="userId" required>
                     <button type="submit" class="btn-edit-uzivatel">Upravit uživatele</button>
                 </form>
             </div>
@@ -78,6 +67,27 @@
         </div>
     </main>
 
+    <!-- Event Overlay -->
+    <div id="eventOverlay" class="overlay">
+        <div class="overlay-content">
+            <span class="closebtn" onclick="closeEventOverlay()">&times;</span>
+            <h2>Vyberte akci k úpravě</h2>
+            <ul class="event-list">
+                <% events.forEach(event => { %>
+                    <li>
+                        <form action="/adminEditAkce" method="get">
+                            <input type="hidden" name="eventTitle" value="<%= event.title %>">
+                            <button type="submit" class="event-item">
+                                <span><%= event.title %></span>
+                                <span><%= new Date(event.start).toLocaleString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></span>
+                            </button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+
     <script>
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
@@ -87,36 +97,12 @@
             document.getElementById("sidebar").style.width = "0";
         }
 
-        function filterUsers() {
-            const searchInput = document.getElementById('userSearch').value.toLowerCase();
-            const userSuggestions = document.getElementById('userSuggestions');
-            userSuggestions.innerHTML = '';
-            const users = <%- JSON.stringify(allUsers) %>;
-            users.forEach(user => {
-                const userText = `${user.jmeno} (${user.email})`.toLowerCase();
-                if (userText.includes(searchInput)) {
-                    const suggestion = document.createElement('div');
-                    suggestion.className = 'suggestion';
-                    suggestion.textContent = `${user.jmeno} (${user.email})`;
-                    suggestion.onclick = () => selectUser(user.id, user.jmeno, user.email);
-                    userSuggestions.appendChild(suggestion);
-                }
-            });
+        function openEventOverlay() {
+            document.getElementById("eventOverlay").style.display = "block";
         }
 
-        function selectUser(id, name, email) {
-            document.getElementById('userId').value = id;
-            document.getElementById('userSearch').value = `${name} (${email})`;
-            document.getElementById('userSuggestions').innerHTML = '';
-        }
-
-        function validateUserSelection() {
-            const userId = document.getElementById('userId').value;
-            if (!userId) {
-                alert("Prosím, vyberte uživatele k úpravě.");
-                return false;
-            }
-            return true;
+        function closeEventOverlay() {
+            document.getElementById("eventOverlay").style.display = "none";
         }
     </script>
 </body>
