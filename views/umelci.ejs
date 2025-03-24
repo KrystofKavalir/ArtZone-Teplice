@@ -4,19 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>Seznam umělců</title>
-    <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Style/umelci.css">
-    <script>
-        function openNav() {
-            document.getElementById("sidebar").style.width = "250px";
-        }
-    
-        function closeNav() {
-            document.getElementById("sidebar").style.width = "0";
-        }
-    </script>
+    <title>Umělci</title>
 </head>
 <body>
     <header id="header">
@@ -31,37 +22,43 @@
 
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         
-
-        <div class="profilMain w3-display-right">
-            <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
-
-            <div class="prof">
-                <h4><% if (name) { %>
-                        <%= name %>
-                    <% } else { %>
-                        Uživatel
-                    <% } %>
-                </h4>
-                <a href="/profil"><% if (name) { %>
-                    Profil
-                <% } else { %>
-                    Přihlásit se
-                <% } %></a>            
-            </div>
-        </div>    
+        <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
     </header>
 
     <div id="sidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/">Domů</a>
-        <a href="/umelci">Umělci</a>
-        <a href="/kalendar" class="active">Kalendář akcí</a>
+        <a href="/umelci" class="active">Umělci</a>
+        <a href="/kalendar">Kalendář akcí</a>
         <a href="/kontakt">Kontakt</a>
     </div>
 
+    <main class="container mt-5">
+        <h1 class="text-center mb-5">Umělci</h1>
+        <div class="row">
+            <% artists.forEach(artist => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card artist-card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="<%= artist.jmeno %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= artist.jmeno %></h5>
+                            <p class="card-text"><%= artist.popis %></p>
+                            <p class="card-text"><small class="text-muted"><%= artist.email %></small></p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
 
-    <!-- css: po .profpic je to header-->
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
 
-    <button type="button" class="btn" onclick="location.href=`https://www.youtube.com/watch?v=doEqUhFiQS4&ab_channel=WalfArchives`">Click me!</button>
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
 </body>
 </html>

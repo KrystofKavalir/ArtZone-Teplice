@@ -139,8 +139,13 @@ app.post("/profilEdit", checkLogIn, async (req, res) => {
     }
 });
 app.get("/umelci", (req, res) => {
-    res.render("umelci.ejs", {name: res.locals.name});
-})
+    connection.query('SELECT jmeno, email, popis FROM uzivatel WHERE role_id = 2 AND authorized = 1', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.render("umelci.ejs", { name: res.locals.name, artists: results });
+    });
+});
 app.get("/login", checkNoLogIn, (req, res) => {
     res.render("login.ejs");
 })

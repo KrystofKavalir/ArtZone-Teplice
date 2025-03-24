@@ -1,3 +1,7 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 #header {
     position: fixed;
     top: 0;
@@ -6,7 +10,7 @@
     background: black;
     display: flex;
     align-items: center;
-    
+    z-index: 5;
 }
 
 .logo {
@@ -30,7 +34,7 @@
 }
 
 a {
-    text-decoration: none
+    text-decoration: none;
 }
 
 .profPic {
@@ -48,25 +52,26 @@ a {
     border-radius: 100px;
     transition: 300ms ease;
     font-size: 0;
-    .prof {
-        transition: 100ms ease;
-        visibility: hidden;
-    }
 }
+
 .profilMain:hover {
     width: 300px;
     transition: 300ms ease;
-    font-size:initial;
-    .prof {
-        visibility: visible;
-    }
+    font-size: initial;
 }
 
 .prof {
     max-width: fit-content;
     margin-left: 20px;
     margin-right: auto;
+    transition: 100ms ease;
+    visibility: hidden;
 }
+
+.profilMain:hover .prof {
+    visibility: visible;
+}
+
 .prof a {
     margin-left: 10px;
     padding: 3px;
@@ -74,10 +79,12 @@ a {
     border-radius: 5px;
     border: 1px ridge #111111;
 }
+
 .prof a:hover {
     background-color: #bbbbbb;
     transition: 50ms ease;
 }
+
 .prof h4 {
     font-weight: 500;
     margin-left: 10px;
@@ -106,7 +113,7 @@ a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #f1f1f1;
+    color: #818181;
     display: block;
     transition: 0.3s;
 }
@@ -126,7 +133,7 @@ a {
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #000000;
+    background-color: #111;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -147,8 +154,37 @@ a {
     }
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
+main {
+    margin-top: 5cm;
 }
 
-/* Add other styles here */
+.artist-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.artist-card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.card-text {
+    font-size: 1em;
+    color: #555;
+}
