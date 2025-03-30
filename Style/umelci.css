@@ -170,21 +170,58 @@ main {
 }
 
 .card-img-top {
-    width: 100%;
-    height: 200px;
+    max-width: 220px;
+    max-height: 220px;
     object-fit: cover;
+    margin: 20px auto;
+    display: block;
+    border-radius: 45%;
+    border: 3px solid #ddd;
+    -webkit-border-radius: 45%;
+    -moz-border-radius: 45%;
+    -ms-border-radius: 45%;
+    -o-border-radius: 45%;
 }
 
 .card-body {
-    padding: 15px;
+    padding: 20px; /* Zvýšení paddingu uvnitř karty */
+    text-align: center; /* Zarovnání textu na střed */
+    margin-top: 20px; /* Posunutí textu na konec karty */
 }
 
 .card-title {
-    font-size: 1.5em;
+    font-size: 1.5rem; /* Zvýšení velikosti názvu */
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    height: 400px; /* Zvýšení výšky karty */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Posunutí obsahu na začátek a konec karty */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 1.5rem;
     font-weight: 700;
 }
 
 .card-text {
-    font-size: 1em;
+    font-size: 1rem;
     color: #555;
 }

@@ -41,7 +41,9 @@
 
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         
-        <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
+        <a href="/profil" class="profPic w3-display-right">
+            <img class="profPic w3-circle" src="<%= profilePhoto %>" alt="Profilová fotografie">
+        </a>
     </header>
 
     <div id="sidebar" class="sidebar">
@@ -82,6 +84,19 @@
             </div>
             <div class="uprCasti">
                 <button type="submit">Uložit změny</button>
+            </div>
+        </form>
+        <form action="/profilEdit/uploadPhoto" method="post" enctype="multipart/form-data">
+            <div class="uprCasti">
+                <label for="currentProfilePhoto">Aktuální profilová fotografie:</label>
+                <img id="currentProfilePhoto" class="profPic w3-circle" src="<%= profilePhoto %>" alt="Profilová fotografie">
+            </div>
+            <div class="uprCasti">
+                <label for="profilePhoto">Nová profilová fotografie:</label>
+                <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+            </div>
+            <div class="uprCasti">
+                <button type="submit">Změnit fotografii</button>
             </div>
         </form>
     </main>

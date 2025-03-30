@@ -37,13 +37,16 @@
         <h1 class="text-center mb-5">Umělci</h1>
         <div class="row">
             <% artists.forEach(artist => { %>
-                <div class="col-md-4 mb-4">
-                    <div class="card artist-card">
-                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="<%= artist.jmeno %>">
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card artist-card shadow-sm">
+                        <img 
+                            src="<%= artist.profilePhoto %>" 
+                            class="card-img-top" 
+                            alt="<%= artist.jmeno %>">
                         <div class="card-body">
-                            <h5 class="card-title"><%= artist.jmeno %></h5>
-                            <p class="card-text"><%= artist.popis %></p>
-                            <p class="card-text"><small class="text-muted"><%= artist.email %></small></p>
+                            <h5 class="card-title text-center"><%= artist.jmeno %></h5>
+                            <p class="card-text text-center"><%= artist.popis %></p>
+                            <p class="card-text text-center"><small class="text-muted"><%= artist.email %></small></p>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,13 @@ const session = require("express-session");
 const methodOverride = require("method-override");
 const connection = require("./connection"); // Import the database connection
 const fullcalendar = require("fullcalendar");
+const multer = require("multer");
+
+const storage = multer.memoryStorage();
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 16 * 1024 * 1024 } // Nastavení limitu na 16 MB
+});
 
 const initializePassport = require("./passport-config");
 initializePassport(
@@ -42,6 +49,8 @@ const users = []
 
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "20mb" })); // Nastavení limitu pro JSON tělo
+app.use(express.urlencoded({ extended: true, limit: "20mb" })); // Nastavení limitu pro URL-encoded tělo
 app.use(flash());
 
 app.use(session({
@@ -58,23 +67,35 @@ app.use('/Img', express.static(path.join(__dirname, 'Img')));
 
 app.use((req, res, next) => {
     if (req.isAuthenticated()) {
-        connection.query('SELECT role.nazev, uzivatel.popis, uzivatel.email, uzivatel.role_id FROM role JOIN uzivatel ON role.id = uzivatel.role_id WHERE uzivatel.id = ?', [req.user.id], (error, results) => {
-            if (error) {
-                return next(error);
+        connection.query(
+            `SELECT role.nazev, uzivatel.popis, uzivatel.email, uzivatel.role_id, profilfoto.data AS profilePhoto
+             FROM role
+             JOIN uzivatel ON role.id = uzivatel.role_id
+             LEFT JOIN profilfoto ON uzivatel.profilFoto_id = profilfoto.id
+             WHERE uzivatel.id = ?`,
+            [req.user.id],
+            (error, results) => {
+                if (error) {
+                    return next(error);
+                }
+                res.locals.name = req.user.jmeno;
+                res.locals.roleName = results[0].nazev;
+                res.locals.description = results[0].popis || "uživatel nemá popis";
+                res.locals.email = results[0].email;
+                res.locals.roleId = results[0].role_id;
+                res.locals.profilePhoto = results[0].profilePhoto
+                    ? `data:image/jpeg;base64,${results[0].profilePhoto.toString("base64")}`
+                    : "/Img/default_profile.jpg"; // Výchozí obrázek
+                next();
             }
-            res.locals.name = req.user.jmeno;
-            res.locals.roleName = results[0].nazev;
-            res.locals.description = results[0].popis || "uživatel nemá popis";
-            res.locals.email = results[0].email;
-            res.locals.roleId = results[0].role_id;
-            next();
-        });
+        );
     } else {
         res.locals.name = null;
         res.locals.roleName = null;
         res.locals.description = null;
         res.locals.email = null;
         res.locals.roleId = null;
+        res.locals.profilePhoto = "/Img/default_profile.jpg"; // Výchozí obrázek
         next();
     }
 });
@@ -102,7 +123,13 @@ app.get("/profil", checkLogIn, (req, res) => {
     res.render("profil.ejs", { name: res.locals.name, roleName: res.locals.roleName, description: res.locals.description });
 })
 app.get("/profilEdit", checkLogIn, (req, res) => {
-    res.render("profilEdit.ejs", { name: res.locals.name, roleName: res.locals.roleName, description: res.locals.description });
+    res.render("profilEdit.ejs", {
+        name: res.locals.name,
+        roleName: res.locals.roleName,
+        description: res.locals.description,
+        email: res.locals.email,
+        profilePhoto: res.locals.profilePhoto // Předání profilové fotografie
+    });
 });
 app.post("/profilEdit", checkLogIn, async (req, res) => {
     let { name, description, email, password, confirmPassword } = req.body;
@@ -138,13 +165,103 @@ app.post("/profilEdit", checkLogIn, async (req, res) => {
         res.redirect("/profilEdit");
     }
 });
-app.get("/umelci", (req, res) => {
-    connection.query('SELECT jmeno, email, popis FROM uzivatel WHERE role_id = 2 AND authorized = 1', (error, results) => {
-        if (error) {
-            throw error;
+app.post("/profilEdit/uploadPhoto", checkLogIn, upload.single("profilePhoto"), (req, res) => {
+    const file = req.file;
+
+    if (!file) {
+        req.flash("error", "Nebyla vybrána žádná fotografie!");
+        return res.redirect("/profilEdit");
+    }
+
+    const fileData = file.buffer;
+
+    // Získáme aktuální profilovou fotografii uživatele
+    connection.query(
+        "SELECT profilFoto_id FROM uzivatel WHERE id = ?",
+        [req.user.id],
+        (error, results) => {
+            if (error) {
+                req.flash("error", "Nastala chyba při získávání aktuální fotografie!");
+                return res.redirect("/profilEdit");
+            }
+
+            const currentPhotoId = results[0]?.profilFoto_id;
+
+            // Uložíme novou fotografii do tabulky "profilfoto"
+            connection.query(
+                "INSERT INTO profilfoto (data) VALUES (?)",
+                [fileData],
+                (error, results) => {
+                    if (error) {
+                        req.flash("error", "Nastala chyba při nahrávání nové fotografie!");
+                        return res.redirect("/profilEdit");
+                    }
+
+                    const newPhotoId = results.insertId;
+
+                    // Aktualizujeme sloupec "profilFoto_id" u uživatele
+                    connection.query(
+                        "UPDATE uzivatel SET profilFoto_id = ? WHERE id = ?",
+                        [newPhotoId, req.user.id],
+                        (error) => {
+                            if (error) {
+                                req.flash("error", "Nastala chyba při aktualizaci profilu!");
+                                return res.redirect("/profilEdit");
+                            }
+
+                            // Pokud existuje stará fotografie, odstraníme ji
+                            if (currentPhotoId) {
+                                connection.query(
+                                    "DELETE FROM profilfoto WHERE id = ?",
+                                    [currentPhotoId],
+                                    (error) => {
+                                        if (error) {
+                                            req.flash("error", "Nastala chyba při odstraňování staré fotografie!");
+                                            return res.redirect("/profilEdit");
+                                        }
+
+                                        req.flash("success", "Profilová fotografie byla úspěšně změněna!");
+                                        res.redirect("/profilEdit");
+                                    }
+                                );
+                            } else {
+                                req.flash("success", "Profilová fotografie byla úspěšně nahrána!");
+                                res.redirect("/profilEdit");
+                            }
+                        }
+                    );
+                }
+            );
         }
-        res.render("umelci.ejs", { name: res.locals.name, artists: results });
-    });
+    );
+});
+app.get("/umelci", (req, res) => {
+    connection.query(
+        `SELECT uzivatel.jmeno, uzivatel.email, uzivatel.popis, 
+                profilfoto.data AS profilePhoto
+         FROM uzivatel
+         LEFT JOIN profilfoto ON uzivatel.profilFoto_id = profilfoto.id
+         WHERE uzivatel.role_id = 2 AND uzivatel.authorized = 1`,
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+
+            // Zpracování profilových fotografií
+            const artists = results.map(artist => {
+                if (artist.profilePhoto) {
+                    // Pokud je fotografie v databázi, převedeme ji na base64
+                    artist.profilePhoto = `data:image/jpeg;base64,${artist.profilePhoto.toString("base64")}`;
+                } else {
+                    // Pokud není fotografie, použijeme výchozí obrázek
+                    artist.profilePhoto = "/Img/ProfImgDefault.jpg";
+                }
+                return artist;
+            });
+
+            res.render("umelci.ejs", { artists });
+        }
+    );
 });
 app.get("/login", checkNoLogIn, (req, res) => {
     res.render("login.ejs");
