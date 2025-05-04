@@ -21,23 +21,42 @@
         </nav>
 
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
-        
-        <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
-    </header>
+        <!-- pujde do vsech souboru -->
 
+        <div class="profilMain w3-display-right">
+            <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
+
+            <div class="prof">
+                <h4><% if (name) { %>
+                        <%= name %>
+                    <% } else { %>
+                        Uživatel
+                    <% } %>
+                </h4>
+                <a href="/profil"><% if (name) { %>
+                    Profil
+                <% } else { %>
+                    Přihlásit se
+                <% } %></a>
+            </div>
+        </div>
+
+        <!-- konec -->
+    </header>
     <div id="sidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="/">Domů</a>
-        <a href="/umelci" class="active">Umělci</a>
-        <a href="/kalendar">Kalendář akcí</a>
-        <a href="/kontakt">Kontakt</a>
+        <a href="javascript:void(0)" class="closebtn text-decoration-none" onclick="closeNav()">&times;</a>
+        <a href="/" class="text-decoration-none">Domů</a>
+        <a href="/umelci" class="active text-decoration-none">Umělci</a>
+        <a href="/kalendar" class="text-decoration-none">Kalendář akcí</a>
+        <a href="/kontakt" class="text-decoration-none">Kontakt</a>
     </div>
 
-    <main class="container mt-5">
+    <main class="container mt-5 pt-5">
         <h1 class="text-center mb-5">Umělci</h1>
         <div class="row">
             <% artists.forEach(artist => { %>
-                <div class="col-md-4 col-sm-6 mb-4">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <a href="/umelec/<%= artist.id %>" class="text-decoration-none">
                     <div class="card artist-card shadow-sm">
                         <img 
                             src="<%= artist.profilePhoto %>" 
@@ -47,10 +66,12 @@
                             <h5 class="card-title text-center"><%= artist.jmeno %></h5>
                             <p class="card-text text-center"><%= artist.popis %></p>
                             <p class="card-text text-center"><small class="text-muted"><%= artist.email %></small></p>
+                            <a href="/umelec/<%= artist.id %>" class="btn btn-primary btn-block text-decoration-none">Zobrazit více</a>
                         </div>
                     </div>
-                </div>
-            <% }) %>
+                </a>
+            </div>
+        <% }) %>
         </div>
     </main>
 

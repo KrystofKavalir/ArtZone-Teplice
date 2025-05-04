@@ -1,5 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    margin-top: 8rem; /* Add margin to prevent header overlap */
 }
 
 #header {
@@ -35,6 +36,10 @@ body {
 
 a {
     text-decoration: none
+}
+
+a:hover {
+    text-decoration: none; /* Remove underline on hover */
 }
 
 .profPic {
@@ -90,6 +95,7 @@ a {
 
 /* konec login */
 
+
 .nadpisA {
     margin-top: 100px;
     font-size:350%;
@@ -116,8 +122,9 @@ a {
 
 #nejblAkceDiv {
     display: flex;
-    margin-left: 10%;
-    margin-top: 1%;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
 }
 .nejblAkceNadpis {
     margin-left: 10%;
@@ -193,13 +200,21 @@ a {
     text-align: justify;
 }
 .obrazkyKdoJsme {
-    margin-left: 5%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two images per row */
+    gap: 10px; /* Space between images */
+    justify-content: center; /* Center the grid */
+    margin-top: 20px;
 }
 .obrazkyKdoJsme img {
-    border: 2px solid black;
-    border-radius: 10%;
-    width: 35%;
-    margin: 2%;
+    border: 1px solid #cccccc;
+    border-radius: 7%;
+    width: 100%;
+    /*Adjusttofitgridcells*/height: auto;
+    -webkit-border-radius: 7%;
+    -moz-border-radius: 7%;
+    -ms-border-radius: 7%;
+    -o-border-radius: 7%;
 }
 
 
@@ -281,7 +296,7 @@ a {
 
 
 }
-
+/*
 @media screen and (max-width: 1200px) {
     .textKdoJsme {
         font-size: 85%;
@@ -308,7 +323,7 @@ a {
         scale: 0.9;
         z-index: 1;
 
-        /* pouze pro testovani */
+        /* pouze pro testovani *//*
         display: none;
     }
 
@@ -339,7 +354,7 @@ a {
 
 @media screen and (max-width: 600px) {
     .nadpisA {
-        font-size: 200%;
+        font-size: 100%;
     }
     .nadpisB {
         font-size: 260%;
@@ -363,4 +378,4 @@ a {
     .obrazkyKdoJsme img {
         width: 43%;
     }
-}
+}*/

@@ -101,8 +101,22 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.render("index.ejs", {name: res.locals.name});
-})
+    connection.query(
+        `SELECT title, start, podrobnosti 
+         FROM akce 
+         WHERE start >= NOW() 
+         ORDER BY start ASC 
+         LIMIT 1`,
+        (error, results) => {
+            if (error) {
+                console.error("Error fetching closest akce:", error);
+                return res.render("index.ejs", { name: res.locals.name, closestAkce: null });
+            }
+            const closestAkce = results.length > 0 ? results[0] : null;
+            res.render("index.ejs", { name: res.locals.name, closestAkce });
+        }
+    );
+});
 app.get("/kalendar", (req, res) => {
     connection.query('SELECT * FROM akce', (error, results) => {
         if (error) {
@@ -237,7 +251,7 @@ app.post("/profilEdit/uploadPhoto", checkLogIn, upload.single("profilePhoto"), (
 });
 app.get("/umelci", (req, res) => {
     connection.query(
-        `SELECT uzivatel.jmeno, uzivatel.email, uzivatel.popis, 
+        `SELECT uzivatel.id, uzivatel.jmeno, uzivatel.email, uzivatel.popis, 
                 profilfoto.data AS profilePhoto
          FROM uzivatel
          LEFT JOIN profilfoto ON uzivatel.profilFoto_id = profilfoto.id
@@ -260,6 +274,30 @@ app.get("/umelci", (req, res) => {
             });
 
             res.render("umelci.ejs", { artists });
+        }
+    );
+});
+app.get("/umelec/:id", (req, res) => {
+    const artistId = req.params.id; // Extract the artist ID from the URL
+    connection.query(
+        `SELECT uzivatel.jmeno, uzivatel.email, uzivatel.popis, 
+                profilfoto.data AS profilePhoto
+         FROM uzivatel
+         LEFT JOIN profilfoto ON uzivatel.profilFoto_id = profilfoto.id
+         WHERE uzivatel.id = ?`,
+        [artistId],
+        (error, results) => {
+            if (error) {
+                return res.status(500).send("Chyba serveru"); // Handle server errors
+            }
+            if (results.length === 0) {
+                return res.status(404).send("Umělec nenalezen"); // Handle missing artist
+            }
+            const artist = results[0];
+            artist.profilePhoto = artist.profilePhoto
+                ? `data:image/jpeg;base64,${artist.profilePhoto.toString("base64")}`
+                : "/Img/ProfImgDefault.jpg"; // Default profile photo
+            res.render("umelec.ejs", { artist }); // Render the artist page
         }
     );
 });

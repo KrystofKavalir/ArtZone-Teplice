@@ -6,17 +6,18 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Style/index.css">
     <title>ArtZone Teplice</title>
-<script>
-    function openNav() {
-        document.getElementById("sidebar").style.width = "250px";
-    }
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
 
-    function closeNav() {
-        document.getElementById("sidebar").style.width = "0";
-    }
-</script>
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
 </head>
 <body>
     <header id="header">
@@ -53,7 +54,6 @@
         <!-- konec -->
     </header>
 
-
     <div id="sidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/">Domů</a>
@@ -61,54 +61,59 @@
         <a href="/kalendar" class="active">Kalendář akcí</a>
         <a href="/kontakt">Kontakt</a>
     </div>
-    <!-- css: po .profpic je to header-->
 
-
-    <div>
-        <h2 class="nadpisA w3-center w3-container">Vítejte na stránkách projektu</h2>
-        <h1 class="nadpisB w3-center w3-container"><span class="green">A</span>rt<span class="red">Z</span>one <span class="blue">T</span>eplice!</h1>
+    <div class="text-center mt-5 mainText">
+        <h2 class="display-5">Vítejte na stránkách projektu</h2>
+        <h1 class="display-1"><span class="text-success">A</span>rt<span class="text-danger">Z</span>one <span class="text-primary">T</span>eplice!</h1>
     </div>
 
-    <div class="line"></div>
+    <hr class="my-5">
 
-    <div id="nejblAkceDiv">
-        <h3 class="nejblAkceNadpis">Nejbližší akce:</h3>
-        <div class="nejblAkce">
-            <div id="prvniRadekNejblAkce">
-                <h4 class="nazevNejblAkce">nazev_nejblizsi_akce</h4>
-                <h4 class="kdyNejblAkce">Kdy? kdy_se_porada</h4>
+    <div id="nejblAkceDiv" class="container my-5">
+        <% if (closestAkce) { %>
+            <h3 class="text-center">Nejbližší akce:</h3>
+            <div class="card mx-auto mt-4" style="max-width: 800px;"> <!-- Increased width -->
+                <div class="card-body">
+                    <h4 class="card-title"><%= closestAkce.title %></h4>
+                    <h5 class="card-subtitle text-muted">Kdy? <%= closestAkce.start.toLocaleString() %></h5>
+                    <h5>O co jde?</h5>
+                    <p class="card-text"><%= closestAkce.podrobnosti.length > 300 
+                        ? closestAkce.podrobnosti.substring(0, 300) + " ..." 
+                        : closestAkce.podrobnosti %></p> 
+                    <button type="button" class="btn btn-dark btn-block" onclick="location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley'">Více informací</button>
+                </div>
             </div>
-            <div class="oCoJde">
-                <h4>O co jde?</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt repellendus officia veritatis velit aspernatur eum qui quo eaque exercitationem optio maiores id, laborum numquam rem unde accusamus libero veniam aut?</p>
+        <% } else { %>
+            <h3 class="text-center">Žádné nadcházející akce</h3>
+        <% } %>
+    </div>
+
+    <div class="container my-5">
+        <h2 class="text-center">Kdo jsme?</h2>
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <p class="text-justify">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate exercitationem, nemo iusto placeat aliquid rem veritatis ad commodi! Numquam eveniet eaque omnis quasi voluptatum nam často nisi voluptatem voluptatibus facere!
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati perferendis temporibus maxime laudantium praesentium, voluptatibus laboriosam dolorem iusto rerum, molestiae ipsa commodi unde. Voluptatem ipsa, deleniti iusto exercitationem in inventore!
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere eveniet nemo non něco nihil deleniti aliquam, perspiciatis dolorum quo reiciendis necessitatibus impedit sit officiis laudantium. Jsou podobné i následné důsledky.
+                </p>
             </div>
-            <button type="button" onclick="location.href=`https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley`">Více informací</button>
+            <div class="col-md-4 d-flex flex-wrap justify-content-center">
+                <div class="obrazkyKdoJsme">
+                    <img src="/Img/test_img.jpg" alt="">
+                    <img src="/Img/test_img.jpg" alt="">
+                    <img src="/Img/test_img.jpg" alt="">
+                    <img src="/Img/test_img.jpg" alt="">
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="kdoJsme">
-        <h2 class="nadpisKdoJsme">Kdo jsme?</h2>
-        <div class="contentKdoJsme">
-            <p class="textKdoJsme">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate exercitationem, nemo iusto placeat aliquid rem veritatis ad commodi! Numquam eveniet eaque omnis quasi voluptatum nam často nisi voluptatem voluptatibus facere!
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati perferendis temporibus maxime laudantium praesentium, voluptatibus laboriosam dolorem iusto rerum, molestiae ipsa commodi unde. Voluptatem ipsa, deleniti iusto exercitationem in inventore!
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere eveniet nemo non něco nihil deleniti aliquam, perspiciatis dolorum quo reiciendis necessitatibus impedit sit officiis laudantium. Jsou podobné i následné důsledky.
-                
-            </p>
-            <div class="obrazkyKdoJsme">
-                <img src="/Img/test_img.jpg" alt="">
-                <img src="/Img/test_img.jpg" alt="">
-                <img src="/Img/test_img.jpg" alt="">
-                <img src="/Img/test_img.jpg" alt="">
-            </div>
-        </div>
-    </div>
+    <hr class="my-5">
 
-    <div class="line"></div>
-
-    <div class="spolupraceDiv">
-        <h1 class="spolupraceTextA">Chtěli by jste s námi spolupracovat?</h1>
-        <h2 class="spolupraceTextB">Tak nahlédněte do karty <a href="/kontakt">Kontakt</a> a spojte se s námi</h2>
+    <div class="text-center py-5">
+        <h1 class="mb-4">Chtěli by jste s námi spolupracovat?</h1>
+        <h2>Tak nahlédněte do karty <a href="/kontakt" class="text-primary">Kontakt</a> a spojte se s námi</h2>
     </div>
 </body>
 </html>

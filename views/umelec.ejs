@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Style/umelec.css">
+    <title><%= artist.jmeno %></title>
+</head>
+<body>
+    <header id="header">
+        <a href="/" class="logo text-decoration-none"><img class="logo" src="/Img/logo.png" alt="Logo"></a>
+
+        <nav class="navBar">
+            <a href="/" class="text-decoration-none">Domů</a>
+            <a href="/umelci" class="active text-decoration-none">Umělci</a>
+            <a href="/kalendar" class="text-decoration-none">Kalendář akcí</a>
+            <a href="/kontakt" class="text-decoration-none">Kontakt</a>
+        </nav>
+
+        <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
+        
+        <a href="/profil" class="profPic w3-display-right text-decoration-none"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn text-decoration-none" onclick="closeNav()">&times;</a>
+        <a href="/" class="text-decoration-none">Domů</a>
+        <a href="/umelci" class="active text-decoration-none">Umělci</a>
+        <a href="/kalendar" class="text-decoration-none">Kalendář akcí</a>
+        <a href="/kontakt" class="text-decoration-none">Kontakt</a>
+    </div>
+
+    <main class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <img 
+                    src="<%= artist.profilePhoto %>" 
+                    class="img-fluid rounded-circle border" 
+                    alt="<%= artist.jmeno %>">
+            </div>
+            <div class="col-md-8">
+                <h1><%= artist.jmeno %></h1>
+                <p><strong>Email:</strong> <%= artist.email %></p>
+                <p><strong>Popis:</strong> <%= artist.popis %></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
+</body>
+</html>

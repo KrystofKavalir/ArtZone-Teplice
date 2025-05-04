@@ -1,5 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    margin-top: 5rem; /* Add margin to prevent header overlap */
 }
 
 #header {
@@ -34,7 +35,11 @@ body {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none; /* Disable underline for all links */
+}
+
+a:hover {
+    text-decoration: none; /* Remove underline on hover */
 }
 
 .profPic {
@@ -155,7 +160,7 @@ a {
 }
 
 main {
-    margin-top: 5cm;
+    margin-top: 6cm; /* Adjusted margin to prevent content overlap */
 }
 
 .artist-card {
