@@ -484,6 +484,34 @@ app.post("/adminEditUzivatel", checkLogIn, async (req, res) => {
     }
 });
 
+app.get("/userAddAkce", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 2) {
+        res.render("UserAddAkce.ejs", { name: res.locals.name });
+    } else {
+        res.redirect("/profil");
+    }
+});
+
+app.post("/userAddAkce", checkLogIn, (req, res) => {
+    if (res.locals.roleId === 2) {
+        const { title, start, end, misto, podrobnosti, pro_koho } = req.body;
+        const poradatelId = req.user.id;
+
+        connection.query(
+            'INSERT INTO akce (title, start, end, misto, podrobnosti, pro_koho, poradatel_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [title, start, end, misto, podrobnosti, pro_koho, poradatelId],
+            (error, results) => {
+                if (error) {
+                    throw error;
+                }
+                res.redirect("/profil");
+            }
+        );
+    } else {
+        res.redirect("/profil");
+    }
+});
+
 function checkLogIn (req, res, next) { 
     if (req.isAuthenticated()) {
         return next()

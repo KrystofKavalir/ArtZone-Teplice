@@ -114,6 +114,9 @@
     <div class="text-center py-5">
         <h1 class="mb-4">Chtěli by jste s námi spolupracovat?</h1>
         <h2>Tak nahlédněte do karty <a href="/kontakt" class="text-primary">Kontakt</a> a spojte se s námi</h2>
+        <% if (roleId === 2) { %>
+            <a href="/userAddAkce" class="btn btn-success mt-4">Přidat akci</a>
+        <% } %>
     </div>
 </body>
 </html>

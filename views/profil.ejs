@@ -45,17 +45,22 @@
     </div>
 
     <div class="btns">
-        <form action="/logout?_method=DELETE" method="post" class="odhlasitBtn">
-            <button type="submit">Odhlásit se</button>
-        </form>
         <form action="/profilEdit" class="odhlasitBtn">
-            <button type="submit">Upravit</button>
+            <button type="submit">Upravit profil</button>
         </form>
         <% if (roleId === 1) { %>
             <form action="/adminSettings" class="odhlasitBtn">
                 <button type="submit">Administrace</button>
             </form>
         <% } %>
+        <% if (roleId === 2) { %>
+            <form action="/userAddAkce" class="odhlasitBtn">
+                <button type="submit">Přidat akci</button>
+            </form>
+        <% } %>
+        <form action="/logout?_method=DELETE" method="post" class="odhlasitBtn">
+            <button type="submit">Odhlásit se</button>
+        </form>
     </div>
 
     <script>
