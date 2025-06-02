@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/kontakt.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Kontakt</title>
     <script>
         function openNav() {
@@ -59,31 +60,30 @@
         <a href="/kontakt">Kontakt</a>
     </div>
 
-    <!-- css: po .profpic je to header-->
-
-    <h1 class="nadpis">Jak nás můžete kontaktovat?</h1>
+    <h1 class="text-center my-5">Jak nás můžete kontaktovat?</h1>
     
-    <div class="kontaktA">
-        <div class="kontaktB">
-            <h2 class="nadpisTyp">Adresa:</h2>
-            <div class="adresContent">
-                <p class="kontakty">Tovární 298/74 <br> Dubí <br> 417 02</p>
-                <iframe style="border:none" src="https://en.frame.mapy.cz/s/lubogeruve" width="400" height="280" frameborder="0"></iframe>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <h2 class="fw-bold">Adresa:</h2>
+                <p class="fs-5">Tovární 298/74 <br> Dubí <br> 417 02</p>
+                <iframe class="w-100" style="border:none" src="https://en.frame.mapy.cz/s/lubogeruve" height="280" frameborder="0"></iframe>
             </div>
-            
+            <div class="col-md-6">
+                <h2 class="fw-bold">Telefon:</h2>
+                <p class="fs-5">Tomáš Koubek, Sekretariát <span class="fst-italic">(Pondělí-Neděle, 8:00-17:00)</span>: <br> +420 775 733 974</p>
+                <p class="fs-5">Kryštof Skála, Manager <span class="fst-italic">(Pondělí-Pátek, 15:00-17:00)</span>: <br> +420 732 348 681</p>
+                <p class="fs-5">Kryštof Kavalír, Správa webové stránky <span class="fst-italic">(Pondělí-Pátek, 8:00-12:00)</span>: <br> +420 774 244 104</p>
+            </div>
         </div>
-        <div class="kontaktB">
-            <h2 class="nadpisTyp">Telefon:</h2>
-
-            <p class="kontakty"> Tomáš Koubek, Sekretariát <span> (Pondělí-Neděle, 8:00-17:00)</span>: <br> +420 775 733 974</p>
-            <p class="kontakty">Kryštof Skála, Manager <span> (Pondělí-Pátek, 15:00-17:00</span>): <br> +420 732 348 681</p>
-            <p class="kontakty">Kryštof Kavalír, Správa webové stránky <span>(Pondělí-Pátek, 8:00-12:00)</span>: <br>+420 774 244 104</p>
-        </div>
-        <div class="kontaktB">
-            <h2 class="nadpisTyp">Email:</h2>
-            <p class="kontakty">info@artzonetp.cz</p>
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="fw-bold">Email:</h2>
+                <p class="fs-5">info@artzonetp.cz</p>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
