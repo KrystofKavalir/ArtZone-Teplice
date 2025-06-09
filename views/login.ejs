@@ -6,17 +6,23 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/Style/login_register.css">
     <title>Přihlásit se</title>
     <script>
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
         }
-
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
         }
     </script>
+    <style>
+        a, a:hover, a:focus {
+            text-decoration: none !important;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -42,31 +48,29 @@
         <a href="/kontakt">Kontakt</a>
     </div>
     
-    <div class="main w3-center">
-        <h1>Přihlaste se</h1>
-
-        <% if (messages.error) { %>
-            <div class="error">
-                <%= messages.error %>
+    <div class="main d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="card border-0 shadow-sm p-4" style="min-width: 340px; max-width: 400px; width: 100%; background: #fff; border-radius: 1.5rem;">
+            <h2 class="mb-4 text-center fw-semibold">Přihlaste se</h2>
+            <% if (messages.error) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= messages.error %>
+                </div>
+            <% } %>
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control rounded-pill px-3 py-2" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Heslo</label>
+                    <input type="password" name="password" id="password" class="form-control rounded-pill px-3 py-2" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100 rounded-pill py-2 fw-semibold">Přihlásit se</button>
+            </form>
+            <div class="mt-4 text-center">
+                <div class="small text-muted mb-2">Chcete se k nám přidat?</div>
+                <a href="/register" class="btn btn-outline-secondary w-100 rounded-pill text-decoration-none fw-semibold">Registrujte se</a>
             </div>
-        <% } %>
-
-        <form action="/login" method="POST">
-            <div>
-                <label for="email">Email: </label>
-                <input type="email" name="email" id="email" required>
-            </div>
-            <div>
-                <label for="password">Heslo: </label>
-                <input type="password" name="password" id="password" required>
-            </div>
-
-            <button type="submit" class="submit">Přihlásit se</button>
-        </form>
-
-        <div>
-            <h3>Chcete se k nám přidat?</h3>
-            <a href="/register">Registrujte se</a>
         </div>
     </div>
 </body>

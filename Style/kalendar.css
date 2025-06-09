@@ -86,11 +86,12 @@ a {
 }
 
 #calendar {
-    max-width: 800px;
+    max-width: 1200px;      /* původně 800px */
+    min-width: 350px;
     margin: 0 auto;
     margin-top: 150px;
     background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    padding: 20px;
+    padding: 40px;          /* zvětšeno z 20px */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     z-index: 1;
@@ -143,12 +144,39 @@ a {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
+    font-size: 0.95em;      /* změněno z 1.1em na menší */
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.3;
+    min-height: 32px;       /* vyšší event box */
 }
 
 .fc-daygrid-event:hover {
     background-color: #0056b3;
+}
+
+.fc-event-past,
+.fc-daygrid-event.fc-event-past {
+    background-color: #888 !important;
+    color: #eee !important;
+    opacity: 0.7;
+}
+
+.fc-event-now,
+.fc-daygrid-event.fc-event-now {
+    background-color: #007bff !important;
+    color: #fff !important;
+    animation: blink-now 3s ease-in-out infinite;
+    -webkit-animation: blink-now 3s ease-in-out infinite;
+}
+
+@keyframes blink-now {
+    0% { filter: brightness(1); }
+    30% { filter: brightness(0.7); -webkit-filter: brightness(0.7); }
+    70% { filter: brightness(1); -webkit-filter: brightness(1); }
+    100% { filter: brightness(1); }
 }
 
 /* Sidebar styles */

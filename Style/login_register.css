@@ -1,5 +1,6 @@
 body {
-    background-image: url(/Img/Background3.jpg);
+    background: linear-gradient(to bottom right, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 1), rgba(255, 0, 0, 0.1), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0.1));
+    background-attachment: fixed;
     background-size:cover;
     font-family: 'Open Sans', sans-serif;
 }

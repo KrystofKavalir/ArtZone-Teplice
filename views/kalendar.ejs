@@ -18,7 +18,6 @@
                 initialView: 'dayGridMonth',
                 locale: 'cs',
                 events: <%- JSON.stringify(events || []) %>,
-
                 headerToolbar: {
                     left: 'today',
                     center: 'title',
@@ -27,6 +26,25 @@
                 firstDay: 1,
                 contentHeight: 'auto',
                 aspectRatio: 1.5,
+                eventDidMount: function(info) {
+                    const now = new Date();
+                    const start = new Date(info.event.start);
+                    const end = info.event.end ? new Date(info.event.end) : null;
+
+
+                    if (end && end < now) {
+                        info.el.classList.add('fc-event-past');
+                    } else if (!end && start < now) {
+                        info.el.classList.add('fc-event-past');
+                    }
+
+                    else if (
+                        (start <= now && end && end >= now) ||
+                        (start <= now && !end)
+                    ) {
+                        info.el.classList.add('fc-event-now');
+                    }
+                }
             });
             calendar.render();
         });

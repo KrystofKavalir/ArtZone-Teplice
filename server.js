@@ -260,14 +260,10 @@ app.get("/umelci", (req, res) => {
             if (error) {
                 throw error;
             }
-
-            // Zpracování profilových fotografií
             const artists = results.map(artist => {
                 if (artist.profilePhoto) {
-                    // Pokud je fotografie v databázi, převedeme ji na base64
                     artist.profilePhoto = `data:image/jpeg;base64,${artist.profilePhoto.toString("base64")}`;
                 } else {
-                    // Pokud není fotografie, použijeme výchozí obrázek
                     artist.profilePhoto = "/Img/ProfImgDefault.jpg";
                 }
                 return artist;
@@ -278,7 +274,7 @@ app.get("/umelci", (req, res) => {
     );
 });
 app.get("/umelec/:id", (req, res) => {
-    const artistId = req.params.id; // Extract the artist ID from the URL
+    const artistId = req.params.id; 
     connection.query(
         `SELECT uzivatel.jmeno, uzivatel.email, uzivatel.popis, 
                 profilfoto.data AS profilePhoto
@@ -288,16 +284,31 @@ app.get("/umelec/:id", (req, res) => {
         [artistId],
         (error, results) => {
             if (error) {
-                return res.status(500).send("Chyba serveru"); // Handle server errors
+                return res.status(500).send("Chyba serveru");
             }
             if (results.length === 0) {
-                return res.status(404).send("Umělec nenalezen"); // Handle missing artist
+                return res.status(404).send("Umělec nenalezen");
             }
             const artist = results[0];
             artist.profilePhoto = artist.profilePhoto
                 ? `data:image/jpeg;base64,${artist.profilePhoto.toString("base64")}`
-                : "/Img/ProfImgDefault.jpg"; // Default profile photo
-            res.render("umelec.ejs", { artist }); // Render the artist page
+                : "/Img/ProfImgDefault.jpg";
+            
+            // Získání pouze budoucích a právě probíhajících akcí
+            connection.query(
+                `SELECT id, title, start, end, misto, podrobnosti 
+                 FROM akce 
+                 WHERE poradatel_id = ? 
+                   AND (start >= NOW() OR (start <= NOW() AND end >= NOW()))
+                 ORDER BY start ASC`,
+                [artistId],
+                (err, akce) => {
+                    if (err) {
+                        return res.status(500).send("Chyba serveru při načítání akcí");
+                    }
+                    res.render("umelec.ejs", { artist, akce });
+                }
+            );
         }
     );
 });

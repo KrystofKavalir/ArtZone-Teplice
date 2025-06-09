@@ -7,7 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Style/umelec.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title><%= artist.jmeno %></title>
+    <style>
+        @keyframes blink-now {
+            0%   { background-color: #f8fafc; }
+            50%  { background-color: #e6f4ff; }
+            100% { background-color: #f8fafc; }
+        }
+        .blinking-now {
+            animation: blink-now 2s infinite;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -45,6 +56,50 @@
                 <h1><%= artist.jmeno %></h1>
                 <p><strong>Email:</strong> <%= artist.email %></p>
                 <p><strong>Popis:</strong> <%= artist.popis %></p>
+            </div>
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-4">Akce tohoto umělce</h3>
+                <% if (akce && akce.length > 0) { %>
+                    <div class="list-group">
+                        <% akce.forEach(function(event) { 
+                            const now = new Date();
+                            const start = new Date(event.start);
+                            const end = event.end ? new Date(event.end) : null;
+                            const isHappeningNow = end
+                                ? (start <= now && end >= now)
+                                : (start.toDateString() === now.toDateString());
+                        %>
+                            <div class="list-group-item mb-3 shadow-sm rounded <%= isHappeningNow ? 'blinking-now' : '' %>">
+                                <h5 class="mb-1">
+                                    <%= event.title %>
+                                    <% if (isHappeningNow) { %>
+                                        <span class="badge bg-success ms-2">Právě probíhá</span>
+                                    <% } %>
+                                </h5>
+                                <div class="mb-1 text-muted">
+                                    <i class="bi bi-calendar-event"></i>
+                                    <%= new Date(event.start).toLocaleString("cs-CZ") %>
+                                    <% if (event.end) { %>
+                                        – <%= new Date(event.end).toLocaleString("cs-CZ") %>
+                                    <% } %>
+                                </div>
+                                <% if (event.misto) { %>
+                                    <div class="mb-1"><strong>Místo:</strong> <%= event.misto %></div>
+                                <% } %>
+                                <% if (event.podrobnosti) { %>
+                                    <div class="mb-1"><%= event.podrobnosti %></div>
+                                <% } %>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <div class="alert alert-info">Tento umělec zatím nemá žádné nadcházející akce.</div>
+                <% } %>
             </div>
         </div>
     </main>

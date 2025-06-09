@@ -1,7 +1,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
     background: linear-gradient(to bottom right, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 1), rgba(255, 0, 0, 0.1), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0.1));
-    background-attachment: fixed; /* Keeps the background fixed while scrolling */
+    background-attachment: fixed;
     background-size: cover;
     margin: 0;
     padding: 0;
