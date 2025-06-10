@@ -45,11 +45,11 @@ CREATE TABLE `akce` (
 --
 
 INSERT INTO `akce` (`id`, `title`, `start`, `end`, `poradatel_id`, `misto`, `podrobnosti`, `pro_koho`, `typ_id`, `foto_id`) VALUES
-(1, 'Nechci uz pls', '2025-03-15 20:10:00', '2025-03-16 21:00:00', 0, 'Ne', 'sdfdsf', 'Ty', NULL, NULL),
-(2, 'Akce1', '2025-03-02 08:00:00', '2025-03-09 18:00:00', 0, 'Ne', 'ffdf s klsdfůsd klůjkůf lsůfsdf ', 'Já', NULL, NULL),
-(3, 'Ne', '2025-03-13 00:00:00', '2025-03-14 00:00:00', 0, 'Tady', 'TESTUJU 1', 'Já', NULL, NULL),
-(4, 'ANo bude bootstrap', '2025-02-21 00:00:00', '2025-02-13 00:00:00', 0, 'SPSUL', 'sdifsklfvjopvb vop mvsrfopsd msf jd', 'Já', NULL, NULL),
-(5, 'Test 1', '2025-05-07 10:34:06', '2025-05-07 10:35:00', 0, NULL, 'jfjeo fjsdf josf vfajifasdijofjdsoůfidsjfjlůdsjfljků laj dsfjs joj asljsfljk ljk fjk as jfsdkl sjflkjsal fjkl jfskldj fsklfj kljf lkds fjklůasjfdklůj klj jlsd sd ajljsdflj lksůj lkůsjkflkůsdjljv lk jlk fjsdlk fjsdkl jds klůasbl a sbslf kjsdklf sfklůsalk  lůk lůskj slkůaf jsklů fjsklůf jsdklůj kalůdf jlskůf jlkůd sfjaklůsjfsadklůfjklsdjf sdklůvnalsnfsjklů nfs knlůdsfůjdas lk lk jlůsdfljvnlůsandlfk ůjsalj jskdflůsnvasvn jnoů', NULL, NULL, NULL);
+(1, 'Nechci uz pls', '2025-03-15 20:10:00', '2025-03-16 21:00:00', 15, 'Ne', 'sdfdsf', 'Ty', NULL, NULL),
+(2, 'Akce1', '2025-03-02 08:00:00', '2025-03-09 18:00:00', 15, 'Ne', 'ffdf s klsdfůsd klůjkůf lsůfsdf ', 'Já', NULL, NULL),
+(3, 'Ne', '2025-03-13 00:00:00', '2025-03-14 00:00:00', 15, 'Tady', 'TESTUJU 1', 'Já', NULL, NULL),
+(4, 'ANo bude bootstrap', '2025-02-21 00:00:00', '2025-02-13 00:00:00', 15, 'SPSUL', 'sdifsklfvjopvb vop mvsrfopsd msf jd', 'Já', NULL, NULL),
+(5, 'Test 1', '2025-05-07 10:34:06', '2025-05-07 10:35:00', 15, NULL, 'jfjeo fjsdf josf vfajifasdijofjdsoůfidsjfjlůdsjfljků laj dsfjs joj asljsfljk ljk fjk as jfsdkl sjflkjsal fjkl jfskldj fsklfj kljf lkds fjklůasjfdklůj klj jlsd sd ajljsdflj lksůj lkůsjkflkůsdjljv lk jlk fjsdlk fjsdkl jds klůasbl a sbslf kjsdklf sfklůsalk  lůk lůskj slkůaf jsklů fjsklůf jsdklůj kalůdf jlskůf jlkůd sfjaklůsjfsadklůfjklsdjf sdklůvnalsnfsjklů nfs knlůdsfůjdas lk lk jlůsdfljvnlůsandlfk ůjsalj jskdflůsnvasvn jnoů', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,8 @@ INSERT INTO `uzivatel` (`id`, `jmeno`, `email`, `heslo`, `profilFoto_id`, `role_
 ALTER TABLE `akce`
   ADD PRIMARY KEY (`id`),
   ADD KEY `typ_id` (`typ_id`),
-  ADD KEY `foto_id` (`foto_id`);
+  ADD KEY `foto_id` (`foto_id`),
+  ADD KEY `poradatel_id` (`poradatel_id`);
 
 --
 -- Indexy pro tabulku `akcefoto`
@@ -226,7 +227,8 @@ ALTER TABLE `uzivatel`
 --
 ALTER TABLE `akce`
   ADD CONSTRAINT `akce_ibfk_1` FOREIGN KEY (`typ_id`) REFERENCES `typ` (`id`),
-  ADD CONSTRAINT `akce_ibfk_2` FOREIGN KEY (`foto_id`) REFERENCES `akcefoto` (`id`);
+  ADD CONSTRAINT `akce_ibfk_2` FOREIGN KEY (`foto_id`) REFERENCES `akcefoto` (`id`),
+  ADD CONSTRAINT `akce_ibfk_3` FOREIGN KEY (`poradatel_id`) REFERENCES `uzivatel` (`id`);
 
 --
 -- Omezení pro tabulku `uzivatel`

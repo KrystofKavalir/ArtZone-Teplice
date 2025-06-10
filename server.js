@@ -497,7 +497,7 @@ app.post("/adminEditUzivatel", checkLogIn, async (req, res) => {
 
 app.get("/userAddAkce", checkLogIn, (req, res) => {
     if (res.locals.roleId === 2) {
-        res.render("UserAddAkce.ejs", { name: res.locals.name });
+        res.render("userAddAkce.ejs", { name: res.locals.name }); // změna na malé "u"
     } else {
         res.redirect("/profil");
     }
@@ -513,7 +513,8 @@ app.post("/userAddAkce", checkLogIn, (req, res) => {
             [title, start, end, misto, podrobnosti, pro_koho, poradatelId],
             (error, results) => {
                 if (error) {
-                    throw error;
+                    console.error("Chyba při vkládání akce:", error); // Přidej tento řádek
+                    return res.status(500).send("Chyba při vkládání akce do databáze.");
                 }
                 res.redirect("/profil");
             }
