@@ -89,7 +89,7 @@ app.use((req, res, next) => {
                     : "/Img/default_profile.jpg"; // Výchozí obrázek
                 next();
             }
-        );
+        ); /* test */
     } else {
         res.locals.name = null;
         res.locals.roleName = null;
