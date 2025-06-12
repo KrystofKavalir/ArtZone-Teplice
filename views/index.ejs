@@ -71,16 +71,32 @@
 
     <div id="nejblAkceDiv" class="container my-5">
         <% if (closestAkce) { %>
-            <h3 class="text-center">Nejbližší akce:</h3>
-            <div class="card mx-auto mt-4" style="max-width: 800px;"> <!-- Increased width -->
-                <div class="card-body">
-                    <h4 class="card-title"><%= closestAkce.title %></h4>
-                    <h5 class="card-subtitle text-muted">Kdy? <%= closestAkce.start.toLocaleString() %></h5>
-                    <h5>O co jde?</h5>
-                    <p class="card-text"><%= closestAkce.podrobnosti.length > 300 
-                        ? closestAkce.podrobnosti.substring(0, 300) + " ..." 
-                        : closestAkce.podrobnosti %></p> 
-                    <button type="button" class="btn btn-dark btn-block" onclick="location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley'">Více informací</button>
+            <h3 class="text-center mb-4">Nejbližší akce:</h3>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div class="card shadow-lg border-0 bg-light px-2 py-4 squircle-card">
+                        <div class="card-body p-4 squircle-inner">
+                            <h4 class="card-title fw-bold text-primary mb-3"><%= closestAkce.title %></h4>
+                            <div class="mb-2">
+                                <span class="badge bg-primary px-4 py-2 fs-5 rounded-pill shadow-sm">
+                                    <i class="bi bi-calendar-event"></i>
+                                    <%= closestAkce.start.toLocaleString() %>
+                                </span>
+                            </div>
+                            <h5 class="mt-4 mb-2 text-secondary">O co jde?</h5>
+                            <p class="card-text fs-5 mb-4">
+                                <%= closestAkce.podrobnosti.length > 300 
+                                    ? closestAkce.podrobnosti.substring(0, 300) + " ..." 
+                                    : closestAkce.podrobnosti %>
+                            </p>
+                            <div class="d-flex justify-content-end">
+                                <a href="/akce/<%= closestAkce.id %>" class="btn btn-primary btn-lg rounded-pill shadow px-4">
+                                    Více informací
+                                    <i class="bi bi-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         <% } else { %>
@@ -118,5 +134,22 @@
             <a href="/userAddAkce" class="btn btn-success mt-4">Přidat akci</a>
         <% } %>
     </div>
+
+    <!-- Přidej do <head> pokud ještě nemáš: -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </body>
 </html>
+
+<style>
+/* Squircle efekt pro kartu */
+.squircle-card {
+    border-radius: 2.2rem !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13) !important;
+    overflow: hidden;
+    background: #f8fafc;
+}
+.squircle-inner {
+    border-radius: 2rem !important;
+    background: #fff;
+}
+</style>

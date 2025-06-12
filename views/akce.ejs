@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title><%= akce.title %> | Detail akce</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/Img/logo_v2_icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/Style/akce.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #f8fafc 0%, #e3e9f7 100%);
+            font-family: 'Open Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .akce-detail-container {
+            max-width: 900px;
+            margin: 5rem auto 2rem auto;
+            background: #fff;
+            border-radius: 2.5rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.13);
+            padding: 3.5rem 3rem 2.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+            min-height: 350px;
+            animation: overlay-pop 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        @keyframes overlay-pop {
+            0% { transform: scale(0.97) translateY(40px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .akce-detail-container h1 {
+            font-size: 2.7rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a237e;
+            letter-spacing: 0.01em;
+        }
+        .akce-detail-label {
+            font-weight: 700;
+            color: #1976d2;
+            font-size: 1.25rem;
+            margin-bottom: 0.2rem;
+        }
+        .akce-detail-value {
+            font-size: 1.15rem;
+            color: #222;
+            margin-bottom: 1.1rem;
+            line-height: 1.6;
+        }
+        .akce-detail-link {
+            color: #2196F3;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+        .akce-detail-link:hover {
+            color: #0d47a1;
+        }
+        @media (max-width: 1000px) {
+            .akce-detail-container {
+                max-width: 98vw;
+                padding: 2rem 1.2rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .akce-detail-container {
+                margin-top: 2.5rem;
+                padding: 1.2rem 0.5rem;
+                border-radius: 1.2rem;
+            }
+            .akce-detail-container h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="/" class="logo"><img class="logo" src="/Img/logo.png"></a>
+        <nav class="navBar">
+            <a href="/">Domů</a>
+            <a href="/umelci">Umělci</a>
+            <a href="/kalendar">Kalendář akcí</a>
+            <a href="/kontakt">Kontakt</a>
+        </nav>
+        <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
+        <div class="profilMain w3-display-right">
+            <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
+            <div class="prof">
+                <h4><% if (name) { %>
+                        <%= name %>
+                    <% } else { %>
+                        Uživatel
+                    <% } %>
+                </h4>
+                <a href="/profil"><% if (name) { %>
+                    Profil
+                <% } else { %>
+                    Přihlásit se
+                <% } %></a>
+            </div>
+        </div>
+    </header>
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Domů</a>
+        <a href="/umelci">Umělci</a>
+        <a href="/kalendar" class="active">Kalendář akcí</a>
+        <a href="/kontakt">Kontakt</a>
+    </div>
+
+    <main>
+        <div class="akce-detail-container">
+            <h1><%= akce.title %></h1>
+            <div>
+                <div class="akce-detail-label">Začátek:</div>
+                <div class="akce-detail-value"><%= new Date(akce.start).toLocaleString("cs-CZ") %></div>
+            </div>
+            <% if (akce.end) { %>
+            <div>
+                <div class="akce-detail-label">Konec:</div>
+                <div class="akce-detail-value"><%= new Date(akce.end).toLocaleString("cs-CZ") %></div>
+            </div>
+            <% } %>
+            <% if (akce.poradatel_id) { %>
+            <div>
+                <div class="akce-detail-label">Pořadatel:</div>
+                <div class="akce-detail-value">
+                    <a href="/umelec/<%= akce.poradatel_id %>" class="akce-detail-link"><%= akce.poradatel_jmeno %></a>
+                </div>
+            </div>
+            <% } %>
+            <% if (akce.misto) { %>
+            <div>
+                <div class="akce-detail-label">Místo:</div>
+                <div class="akce-detail-value"><%= akce.misto %></div>
+            </div>
+            <% } %>
+            <% if (akce.podrobnosti) { %>
+            <div>
+                <div class="akce-detail-label">Podrobnosti:</div>
+                <div class="akce-detail-value"><%= akce.podrobnosti %></div>
+            </div>
+            <% } %>
+            <% if (akce.pro_koho) { %>
+            <div>
+                <div class="akce-detail-label">Pro koho:</div>
+                <div class="akce-detail-value"><%= akce.pro_koho %></div>
+            </div>
+            <% } %>
+        </div>
+    </main>
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
+</body>
+</html>

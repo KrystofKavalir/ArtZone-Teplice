@@ -109,10 +109,10 @@ a:hover {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 3;
+    z-index: 20;
     top: 0;
     left: 0;
-    background: #343a40; /* Dark gray for the sidebar */
+    background-color: #000000;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -122,7 +122,7 @@ a:hover {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #f1f1f1;
     display: block;
     transition: 0.3s;
 }
@@ -142,7 +142,7 @@ a:hover {
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #111;
+    background-color: #000000;
     color: white;
     padding: 10px 15px;
     border: none;

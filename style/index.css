@@ -239,10 +239,10 @@ a:hover {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 10;
+    z-index: 20;
     top: 0;
     left: 0;
-    background: #343a40; /* Dark gray for the sidebar */
+    background-color: #000000;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;

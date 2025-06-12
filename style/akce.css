@@ -6,7 +6,7 @@
     background: black;
     display: flex;
     align-items: center;
-    
+    z-index: 2;
 }
 
 .logo {
@@ -24,13 +24,13 @@
     transition: 200ms ease;
 }
 
-.navBar a:hover {
+.navBar a:hover, .navBar a.active {
     background-color: #ffffff;
     color: #000000;
 }
 
 a {
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 .profPic {
@@ -38,59 +38,53 @@ a {
     height: auto;
 }
 
-
-.upPart {
+.profilMain {
     display: flex;
-    justify-content: space-between;
+    width: 2cm;
+    height: 2cm;
+    background-color: white;
+    border-radius: 100px;
+    transition: 300ms ease;
+    font-size: 0;
 }
-.upPart img {
+
+.profilMain:hover {
     width: 300px;
-    height: 300px;
-    border: 1px solid #000000;
-    border-radius: 150px;
-    margin-right: 10%;
+    transition: 300ms ease;
+    font-size: initial;
 }
 
-.p1 {
-    padding-top: 3cm;
-    margin-left: 10%;
-}
-
-.jmeno {
-    font-weight: 500;
-}
-.jmeno span {
-    font-weight: 700;
-}
-.p1 p {
-    width: 50%;
-    text-align: justify;
-    margin-top: 30px;
-}
-
-.odhlasitBtn {
-    margin-top: 10px;
-    margin-left: 10%;
-    vertical-align: bottom;
-}
-.odhlasitBtn button {
-    width: 250px;
-    height: 50px;
-    font-size: x-large;
-    font-weight: 600;
-    color: #1c1c1c;
-    background-color: #ececec;
-    border-style:groove;
-    border-color: #5e5e5e;
-    border-radius: 15px;
-}
-.odhlasitBtn button:hover {
-    cursor: pointer;
-    background-color: #bfbfbf;
+.prof {
+    max-width: fit-content;
+    margin-left: 20px;
+    margin-right: auto;
     transition: 100ms ease;
+    visibility: hidden;
 }
 
-/* Sidebar styles */
+.profilMain:hover .prof {
+    visibility: visible;
+}
+
+.prof a {
+    margin-left: 10px;
+    padding: 3px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    border: 1px ridge #111111;
+}
+
+.prof a:hover {
+    background-color: #bbbbbb;
+    transition: 50ms ease;
+}
+
+.prof h4 {
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
 .sidebar {
     height: 100%;
     width: 0;
@@ -98,7 +92,7 @@ a {
     z-index: 3;
     top: 0;
     left: 0;
-    background-color: #000000;
+    background: #343a40; /* Dark gray for the sidebar */
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -138,48 +132,26 @@ a {
     transform: translateX(-50%);
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-}
-
-@media screen and (max-width: 992px) {
-    .p1 {
-        margin-left: 5%;
-    }
-    .upPart img {
-        margin-right: 5%;
-    }
-}
-
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
     .navBar {
         display: none;
     }
+
     .openbtn {
         display: block;
     }
 
-
-    .upPart img {
-        width: 40%;
-        height: 40%;
-        margin-top: 50px;
+    body {
+        background: linear-gradient(to bottom, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 1), rgba(255, 0, 0, 0.1), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0.1)); /* Adjust gradient for smaller screens */
     }
 }
 
-@media screen and (max-width: 600px) {
-    .upPart img {
-        display: none;
-    }
-    .p1 p {
-        margin-top: 10px;
-        width: 95%;
-    }
-    .odhlasitBtn button {
-        width: 70%;
-        height: auto;
-        margin-left: 10%;
-        margin-right: 15%;
-    }
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(to bottom right, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 1), rgba(255, 0, 0, 0.1), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0.1));
+    background-attachment: fixed; /* Keeps the background fixed while scrolling */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
 }

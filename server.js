@@ -103,7 +103,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
     connection.query(
-        `SELECT title, start, podrobnosti 
+        `SELECT id, title, start, podrobnosti 
          FROM akce 
          WHERE start >= NOW() 
          ORDER BY start ASC 
@@ -124,11 +124,16 @@ app.get("/kalendar", (req, res) => {
             throw error;
         }
         const events = results.map(event => ({
-            title: event.title,
+            id: event.id,
+            title: event.title.replace(/\r?\n|\r/g, " "), // odstraní nové řádky!
             start: event.start,
-            end: event.end
+            end: event.end,
+            extendedProps: {
+                misto: event.misto,
+                pro_koho: event.pro_koho
+            }
         }));
-        res.render("kalendar.ejs", { events });
+        res.render("kalendar.ejs", { events, name: res.locals.name });
     });
 })
 app.get("/kontakt", (req, res) => {
@@ -523,6 +528,22 @@ app.post("/userAddAkce", checkLogIn, (req, res) => {
     } else {
         res.redirect("/profil");
     }
+});
+app.get("/akce/:id", (req, res) => {
+    const akceId = req.params.id;
+    connection.query(
+        `SELECT akce.*, uzivatel.jmeno AS poradatel_jmeno, uzivatel.id AS poradatel_id
+         FROM akce
+         LEFT JOIN uzivatel ON akce.poradatel_id = uzivatel.id
+         WHERE akce.id = ?`,
+        [akceId],
+        (error, results) => {
+            if (error) return res.status(500).send("Chyba serveru");
+            if (results.length === 0) return res.status(404).send("Akce nenalezena");
+            const akce = results[0];
+            res.render("akce.ejs", { akce, name: res.locals.name });
+        }
+    );
 });
 
 function checkLogIn (req, res, next) { 

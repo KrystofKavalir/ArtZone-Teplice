@@ -1,3 +1,13 @@
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(to bottom right, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 1), rgba(255, 0, 0, 0.1), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0.1));
+    background-attachment: fixed; /* Keeps the background fixed while scrolling */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
 #header {
     position: fixed;
     top: 0;
@@ -122,10 +132,10 @@ a {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 3;
+    z-index: 20;
     top: 0;
     left: 0;
-    background: #343a40; /* Dark gray for the sidebar */
+    background-color: #000000;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -231,14 +241,6 @@ a {
     }
 }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    background: linear-gradient(to bottom right, rgba(0, 255, 0, 0.1), rgba(255, 255, 255, 1), rgba(255, 0, 0, 0.1), rgba(255, 255, 255, 1), rgba(0, 0, 255, 0.1));
-    background-attachment: fixed; /* Keeps the background fixed while scrolling */
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-}
 
 .container {
     background: rgba(255, 255, 255, 0.95); /* Slightly transparent white background for content */

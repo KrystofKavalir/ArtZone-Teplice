@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "devStart": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
