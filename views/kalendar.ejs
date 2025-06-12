@@ -141,7 +141,7 @@
 
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         
-        <div class="profilMain w3-display-right">
+        <div class="profilMain w3-display-right" id="profilMain">
             <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
 
             <div class="prof">
@@ -195,7 +195,6 @@
     </div>
 
     <style>
-
         /* Flexbox pro event v kalendáři */
         .fc-event-flex {
             display: flex;
@@ -316,41 +315,41 @@
                 display: block;
             }
             .profMobilePanel {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1rem;
-                background: #fff;
-                box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+                display: none;
                 position: absolute;
-                top: 60px;
-                right: 0;
-                width: 250px;
-                z-index: 9999;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s ease;
+                right: 10px;
+                top: 70px; /* pod headerem */
+                background: #fff;
+                border-radius: 20px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+                z-index: 100;
+                padding: 20px 30px;
+                text-align: left;
+                transition: 0.3s;
+                width: 100%;
+                max-width: 350px;
+                min-width: 180px;
+                box-sizing: border-box;
             }
             .profMobilePanel.show {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            .profile-overlay {
                 display: block;
+                animation: fadeInDown 0.3s;
+            }
+            @keyframes fadeInDown {
+                from { opacity: 0; transform: translateY(-20px);}
+                to { opacity: 1; transform: translateY(0);}
+            }
+
+            .profile-overlay {
+                display: none;
                 position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 9998;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s ease;
+                z-index: 99;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.35);
+                transition: 0.3s;
             }
             .profile-overlay.show {
-                opacity: 1;
-                pointer-events: auto;
+                display: block;
             }
         }
     </style>
@@ -381,14 +380,23 @@
             }
         });
 
-
-        profPanelMobile.querySelectorAll('a').forEach(a => {
-            a.addEventListener('click', function() {
+        // Kliknutí mimo panel nebo na overlay zavře panel
+        document.addEventListener('click', function (e) {
+            if (
+                isMobile &&
+                !profilMain.contains(e.target) &&
+                !profPanelMobile.contains(e.target)
+            ) {
                 profPanelMobile.classList.remove('show');
                 profileOverlay.classList.remove('show');
-            });
+            }
+        });
+        // Kliknutí na overlay zavře panel
+        profileOverlay.addEventListener('click', function () {
+            profPanelMobile.classList.remove('show');
+            profileOverlay.classList.remove('show');
         });
     });
-</script>
+    </script>
 </body>
 </html>
