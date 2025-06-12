@@ -10,14 +10,14 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const connection = require("./connection"); // Import the database connection
+const connection = require("./connection");
 const fullcalendar = require("fullcalendar");
 const multer = require("multer");
 
 const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 16 * 1024 * 1024 } // Nastavení limitu na 16 MB
+    limits: { fileSize: 16 * 1024 * 1024 }
 });
 
 const initializePassport = require("./passport-config");
@@ -49,8 +49,8 @@ const users = []
 
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json({ limit: "20mb" })); // Nastavení limitu pro JSON tělo
-app.use(express.urlencoded({ extended: true, limit: "20mb" })); // Nastavení limitu pro URL-encoded tělo
+app.use(express.json({ limit: "20mb" }));
+app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 app.use(flash());
 
 app.use(session({
@@ -86,17 +86,17 @@ app.use((req, res, next) => {
                 res.locals.roleId = results[0].role_id;
                 res.locals.profilePhoto = results[0].profilePhoto
                     ? `data:image/jpeg;base64,${results[0].profilePhoto.toString("base64")}`
-                    : "/Img/default_profile.jpg"; // Výchozí obrázek
+                    : "/Img/default_profile.jpg";
                 next();
             }
-        ); /* test */
+        );
     } else {
         res.locals.name = null;
         res.locals.roleName = null;
         res.locals.description = null;
         res.locals.email = null;
         res.locals.roleId = null;
-        res.locals.profilePhoto = "/Img/default_profile.jpg"; // Výchozí obrázek
+        res.locals.profilePhoto = "/Img/default_profile.jpg";
         next();
     }
 });
@@ -125,7 +125,7 @@ app.get("/kalendar", (req, res) => {
         }
         const events = results.map(event => ({
             id: event.id,
-            title: event.title.replace(/\r?\n|\r/g, " "), // odstraní nové řádky!
+            title: event.title.replace(/\r?\n|\r/g, " "),
             start: event.start,
             end: event.end,
             extendedProps: {
@@ -148,7 +148,7 @@ app.get("/profilEdit", checkLogIn, (req, res) => {
         roleName: res.locals.roleName,
         description: res.locals.description,
         email: res.locals.email,
-        profilePhoto: res.locals.profilePhoto // Předání profilové fotografie
+        profilePhoto: res.locals.profilePhoto
     });
 });
 app.post("/profilEdit", checkLogIn, async (req, res) => {
@@ -195,7 +195,6 @@ app.post("/profilEdit/uploadPhoto", checkLogIn, upload.single("profilePhoto"), (
 
     const fileData = file.buffer;
 
-    // Získáme aktuální profilovou fotografii uživatele
     connection.query(
         "SELECT profilFoto_id FROM uzivatel WHERE id = ?",
         [req.user.id],
@@ -207,7 +206,6 @@ app.post("/profilEdit/uploadPhoto", checkLogIn, upload.single("profilePhoto"), (
 
             const currentPhotoId = results[0]?.profilFoto_id;
 
-            // Uložíme novou fotografii do tabulky "profilfoto"
             connection.query(
                 "INSERT INTO profilfoto (data) VALUES (?)",
                 [fileData],
@@ -219,7 +217,6 @@ app.post("/profilEdit/uploadPhoto", checkLogIn, upload.single("profilePhoto"), (
 
                     const newPhotoId = results.insertId;
 
-                    // Aktualizujeme sloupec "profilFoto_id" u uživatele
                     connection.query(
                         "UPDATE uzivatel SET profilFoto_id = ? WHERE id = ?",
                         [newPhotoId, req.user.id],
@@ -229,7 +226,6 @@ app.post("/profilEdit/uploadPhoto", checkLogIn, upload.single("profilePhoto"), (
                                 return res.redirect("/profilEdit");
                             }
 
-                            // Pokud existuje stará fotografie, odstraníme ji
                             if (currentPhotoId) {
                                 connection.query(
                                     "DELETE FROM profilfoto WHERE id = ?",
@@ -300,7 +296,6 @@ app.get("/umelec/:id", (req, res) => {
                 ? `data:image/jpeg;base64,${artist.profilePhoto.toString("base64")}`
                 : "/Img/ProfImgDefault.jpg";
             
-            // Získání pouze budoucích a právě probíhajících akcí
             connection.query(
                 `SELECT id, title, start, end, misto, podrobnosti 
                  FROM akce 
@@ -365,9 +360,9 @@ app.post("/register", checkNoLogIn, async (req, res) => {
 app.delete("/logout", (req, res) => {
     req.logOut((err) => {
         if (err) {
-            return next(err); // Handle error if any
+            return next(err);
         }
-        res.redirect("/login"); // Redirect after successful logout
+        res.redirect("/login");
     });
 });
 
@@ -503,7 +498,7 @@ app.post("/adminEditUzivatel", checkLogIn, async (req, res) => {
 
 app.get("/userAddAkce", checkLogIn, (req, res) => {
     if (res.locals.roleId === 2) {
-        res.render("userAddAkce.ejs", { name: res.locals.name }); // změna na malé "u"
+        res.render("userAddAkce.ejs", { name: res.locals.name });
     } else {
         res.redirect("/profil");
     }
@@ -519,7 +514,7 @@ app.post("/userAddAkce", checkLogIn, (req, res) => {
             [title, start, end, misto, podrobnosti, pro_koho, poradatelId],
             (error, results) => {
                 if (error) {
-                    console.error("Chyba při vkládání akce:", error); // Přidej tento řádek
+                    console.error("Chyba při vkládání akce:", error);
                     return res.status(500).send("Chyba při vkládání akce do databáze.");
                 }
                 res.redirect("/profil");

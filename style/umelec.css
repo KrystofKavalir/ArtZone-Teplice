@@ -99,7 +99,10 @@ a:hover {
 
 /* konec login */
 
-.btn {margin: 25% 50%;}
+.btn {
+    margin: 0;         /* odstraní zbytečné odsazení */
+    margin-top: 4px;   /* malé odsazení od textu */
+}
 
 /* Sidebar styles */
 .sidebar {

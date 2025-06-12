@@ -45,7 +45,6 @@
                     showEventOverlay(info.event);
                 },
                 eventContent: function(arg) {
-                    // Flexbox: title vlevo, čas vpravo
                     const wrapper = document.createElement('div');
                     wrapper.className = 'fc-event-flex';
 
@@ -53,13 +52,8 @@
                     titleEl.textContent = arg.event.title;
                     titleEl.className = 'fc-event-title-flex';
 
-                    const timeEl = document.createElement('div');
-                    const startDate = new Date(arg.event.start);
-                    timeEl.textContent = startDate.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
-                    timeEl.className = 'fc-event-time-flex';
-
+                    // VŽDY vlož pouze title, nikdy čas
                     wrapper.appendChild(titleEl);
-                    wrapper.appendChild(timeEl);
 
                     return { domNodes: [wrapper] };
                 }
@@ -82,6 +76,7 @@
                 `;
                 overlay.style.display = 'flex';
                 setTimeout(() => overlay.classList.add('event-overlay-visible'), 10);
+                document.querySelector('.event-overlay-close').onclick = closeEventOverlay;
             }
             function closeEventOverlay() {
                 const overlay = document.getElementById('eventOverlay');
@@ -112,7 +107,25 @@
             document.getElementById("sidebar").style.width = "0";
             document.getElementById("sidebarOverlay").style.display = "none";
         }
-        document.getElementById("sidebarOverlay").onclick = closeNav;
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidebarOverlay = document.getElementById("sidebarOverlay");
+            if (sidebarOverlay) {
+                sidebarOverlay.onclick = closeNav;
+            }
+            // Oprava: zabráníme zavření sidebaru při kliknutí na odkazy uvnitř sidebaru
+            var sidebar = document.getElementById("sidebar");
+            if (sidebar) {
+                sidebar.addEventListener('click', function(e) {
+                    // Pokud kliknu na <a>, nevolej closeNav (nebo pouze pokud je to closebtn)
+                    if (e.target.tagName === 'A' && !e.target.classList.contains('closebtn')) {
+                        // Nezavírej sidebar, pouze nech defaultní chování (navigace)
+                        // Pokud chceš sidebar zavřít až po přechodu na novou stránku, není třeba zde nic dělat
+                        // Pokud chceš sidebar zavřít i při kliknutí na odkaz, odkomentuj další řádek:
+                        // closeNav();
+                    }
+                });
+            }
+        });
     </script>
 </head>
 <body>
@@ -172,7 +185,7 @@
         <a href="/kontakt">Kontakt</a>
     </div>
 
-    <div id="sidebarOverlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.2); z-index:9998;"></div>
+    <!-- <div id="sidebarOverlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.2); z-index:9998;"></div> -->
 
     <div id="calendar"></div>
 
@@ -368,21 +381,12 @@
             }
         });
 
-        // Kliknutí mimo panel nebo na overlay zavře panel
-        document.addEventListener('click', function (e) {
-            if (
-                isMobile &&
-                !profilMain.contains(e.target) &&
-                !profPanelMobile.contains(e.target)
-            ) {
+
+        profPanelMobile.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', function() {
                 profPanelMobile.classList.remove('show');
                 profileOverlay.classList.remove('show');
-            }
-        });
-        // Kliknutí na overlay zavře panel
-        profileOverlay.addEventListener('click', function () {
-            profPanelMobile.classList.remove('show');
-            profileOverlay.classList.remove('show');
+            });
         });
     });
 </script>
