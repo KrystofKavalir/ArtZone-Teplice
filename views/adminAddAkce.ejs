@@ -7,30 +7,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/Style/adminAddAkce.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Přidat akci</title>
     <script>
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
         }
-
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
         }
     </script>
+    <style>
+        a { text-decoration: none; }
+        main {
+            margin-top: 110px;
+            margin-bottom: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 540px;
+            padding: 0 10px;
+        }
+        @media (max-width: 575.98px) {
+            main {
+                margin-top: 90px;
+                margin-bottom: 20px;
+                max-width: 100%;
+                padding: 0 5px;
+            }
+        }
+        .admin-card {
+            border-radius: 1.5rem !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            background: #fff;
+            margin-bottom: 2rem;
+        }
+        .form-control, textarea {
+            border-radius: 1rem !important;
+        }
+        .btn-add-akce {
+            display: inline-block;
+            width: 100%;
+            height: 50px;
+            font-size: x-large;
+            font-weight: 600;
+            color: #1c1c1c;
+            background-color: #ececec;
+            border-style: groove;
+            border-color: #5e5e5e;
+            border-radius: 15px;
+            text-align: center;
+            line-height: 50px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: 100ms ease;
+        }
+        .btn-add-akce:hover {
+            cursor: pointer;
+            background-color: #bfbfbf;
+        }
+        .admin-section-title {
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+        .uprCasti {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
         <a href="/" class="logo"><img class="logo" src="Img/logo.png"></a>
-
         <nav class="navBar">
             <a href="/">Domů</a>
             <a href="/umelci">Umělci</a>
             <a href="/kalendar">Kalendář akcí</a>
             <a href="/kontakt">Kontakt</a>
         </nav>
-
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
-        
         <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
     </header>
 
@@ -43,36 +98,36 @@
     </div>
 
     <main>
-        <h1>Přidat akci</h1>
-        <form action="/adminAddAkce" method="post">
-            <div class="uprCasti">
-                <label for="title">Název akce:</label>
-                <input type="text" id="title" name="title" required>
-            </div>
-            <div class="uprCasti">
-                <label for="start">Začátek:</label>
-                <input type="datetime-local" id="start" name="start" required>
-            </div>
-            <div class="uprCasti">
-                <label for="end">Konec:</label>
-                <input type="datetime-local" id="end" name="end">
-            </div>
-            <div class="uprCasti">
-                <label for="misto">Místo:</label>
-                <input type="text" id="misto" name="misto">
-            </div>
-            <div class="uprCasti">
-                <label for="podrobnosti">Podrobnosti:</label>
-                <textarea id="podrobnosti" name="podrobnosti"></textarea>
-            </div>
-            <div class="uprCasti">
-                <label for="pro_koho">Pro koho:</label>
-                <input type="text" id="pro_koho" name="pro_koho">
-            </div>
-            <div class="uprCasti">
+        <div class="card admin-card p-4">
+            <h1 class="admin-section-title mb-4">Přidat akci</h1>
+            <form action="/adminAddAkce" method="post">
+                <div class="uprCasti">
+                    <label for="title" class="form-label">Název akce:</label>
+                    <input type="text" id="title" name="title" required class="form-control">
+                </div>
+                <div class="uprCasti">
+                    <label for="start" class="form-label">Začátek:</label>
+                    <input type="datetime-local" id="start" name="start" required class="form-control">
+                </div>
+                <div class="uprCasti">
+                    <label for="end" class="form-label">Konec:</label>
+                    <input type="datetime-local" id="end" name="end" class="form-control">
+                </div>
+                <div class="uprCasti">
+                    <label for="misto" class="form-label">Místo:</label>
+                    <input type="text" id="misto" name="misto" class="form-control">
+                </div>
+                <div class="uprCasti">
+                    <label for="podrobnosti" class="form-label">Podrobnosti:</label>
+                    <textarea id="podrobnosti" name="podrobnosti" class="form-control"></textarea>
+                </div>
+                <div class="uprCasti">
+                    <label for="pro_koho" class="form-label">Pro koho:</label>
+                    <input type="text" id="pro_koho" name="pro_koho" class="form-control">
+                </div>
                 <button type="submit" class="btn-add-akce">Přidat akci</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </main>
 </body>
 </html>

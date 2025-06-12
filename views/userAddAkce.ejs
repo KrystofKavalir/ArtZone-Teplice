@@ -1,18 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="Img/logo_v2_icon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/Img/logo_v2_icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Style/userAddAkce.css">
     <title>Přidat akci</title>
+    <style>
+        main {
+            margin-top: 110px;
+            margin-bottom: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 540px;
+            padding: 0 10px;
+        }
+        @media screen and (max-width: 575.98px) {
+            main {
+                margin-top: 90px;
+                margin-bottom: 20px;
+                max-width: 100%;
+                padding: 0 5px;
+            }
+        }
+        .card.rounded-4 {
+            border-radius: 1.5rem !important;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .form-control, .form-control-file, textarea {
+            border-radius: 1rem !important;
+        }
+        .btn-add-akce {
+            display: inline-block;
+            width: 100%;
+            height: 50px;
+            font-size: x-large;
+            font-weight: 600;
+            color: #1c1c1c;
+            background-color: #ececec;
+            border-style: groove;
+            border-color: #5e5e5e;
+            border-radius: 15px;
+            text-align: center;
+            line-height: 50px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: 100ms ease;
+        }
+        .btn-add-akce:hover {
+            cursor: pointer;
+            background-color: #bfbfbf;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
     <script>
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
         }
-
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
         }
@@ -20,20 +69,16 @@
 </head>
 <body>
     <header id="header">
-        <a href="/" class="logo"><img class="logo" src="Img/logo.png"></a>
-
+        <a href="/" class="logo"><img class="logo" src="/Img/logo.png"></a>
         <nav class="navBar">
             <a href="/">Domů</a>
             <a href="/umelci">Umělci</a>
             <a href="/kalendar">Kalendář akcí</a>
             <a href="/kontakt">Kontakt</a>
         </nav>
-
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
-        
         <a href="/profil" class="profPic w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></a>
     </header>
-
     <div id="sidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/">Domů</a>
@@ -41,38 +86,43 @@
         <a href="/kalendar" class="active">Kalendář akcí</a>
         <a href="/kontakt">Kontakt</a>
     </div>
-
     <main>
-        <h1>Přidat akci</h1>
-        <form action="/userAddAkce" method="post">
-            <div class="uprCasti">
-                <label for="title">Název akce:</label>
-                <input type="text" id="title" name="title" required>
+        <div class="container-fluid px-0" style="max-width: 540px;">
+            <h1 class="text-center mb-4" style="font-weight:700;letter-spacing:1px;">Přidat akci</h1>
+            <div class="card shadow-sm rounded-4">
+                <div class="card-body">
+                    <form action="/userAddAkce" method="post">
+                        <div class="form-group mb-3">
+                            <label for="title">Název akce:</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="start">Začátek:</label>
+                            <input type="datetime-local" class="form-control" id="start" name="start" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="end">Konec:</label>
+                            <input type="datetime-local" class="form-control" id="end" name="end">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="misto">Místo:</label>
+                            <input type="text" class="form-control" id="misto" name="misto">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="podrobnosti">Podrobnosti:</label>
+                            <textarea class="form-control" id="podrobnosti" name="podrobnosti" rows="3"></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="pro_koho">Pro koho:</label>
+                            <input type="text" class="form-control" id="pro_koho" name="pro_koho">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn-add-akce">Přidat akci</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="uprCasti">
-                <label for="start">Začátek:</label>
-                <input type="datetime-local" id="start" name="start" required>
-            </div>
-            <div class="uprCasti">
-                <label for="end">Konec:</label>
-                <input type="datetime-local" id="end" name="end">
-            </div>
-            <div class="uprCasti">
-                <label for="misto">Místo:</label>
-                <input type="text" id="misto" name="misto">
-            </div>
-            <div class="uprCasti">
-                <label for="podrobnosti">Podrobnosti:</label>
-                <textarea id="podrobnosti" name="podrobnosti"></textarea>
-            </div>
-            <div class="uprCasti">
-                <label for="pro_koho">Pro koho:</label>
-                <input type="text" id="pro_koho" name="pro_koho">
-            </div>
-            <div class="uprCasti">
-                <button type="submit" class="btn-add-akce">Přidat akci</button>
-            </div>
-        </form>
+        </div>
     </main>
 </body>
 </html>

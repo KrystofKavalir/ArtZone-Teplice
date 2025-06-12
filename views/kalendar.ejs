@@ -147,6 +147,23 @@
         </div>
     </header>
 
+    <!-- Panel pod headerem pro mobilní zobrazení -->
+    <div id="profPanelMobile" class="profMobilePanel">
+        <h4><% if (name) { %>
+                <%= name %>
+            <% } else { %>
+                Uživatel
+            <% } %>
+        </h4>
+        <a href="/profil"><% if (name) { %>
+            Profil
+        <% } else { %>
+            Přihlásit se
+        <% } %></a>
+    </div>
+    <!-- Overlay pro zatemnění -->
+    <div id="profileOverlay" class="profile-overlay"></div>
+
     <div id="sidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/">Domů</a>
@@ -276,8 +293,98 @@
             transform: scale(1.04);
             box-shadow: 0 4px 18px rgba(0,0,0,0.13);
         }
+
+        /* Mobilní styly */
+        @media (max-width: 768px) {
+            .navBar {
+                display: none;
+            }
+            .openbtn {
+                display: block;
+            }
+            .profMobilePanel {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+                background: #fff;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 250px;
+                z-index: 9999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            .profMobilePanel.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .profile-overlay {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 9998;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+            .profile-overlay.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
     </style>
     <!-- Pro ikonky (bootstrap icons) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+    // Mobilní rozbalení profilu pod headerem + overlay
+    document.addEventListener('DOMContentLoaded', function () {
+        const profilMain = document.getElementById('profilMain');
+        const profPanelMobile = document.getElementById('profPanelMobile');
+        const profileOverlay = document.getElementById('profileOverlay');
+        let isMobile = window.innerWidth < 950;
+
+        function updateMobileFlag() {
+            isMobile = window.innerWidth < 950;
+            if (!isMobile) {
+                profPanelMobile.classList.remove('show');
+                profileOverlay.classList.remove('show');
+            }
+        }
+        window.addEventListener('resize', updateMobileFlag);
+
+        profilMain.addEventListener('click', function (e) {
+            if (isMobile) {
+                e.preventDefault();
+                profPanelMobile.classList.toggle('show');
+                profileOverlay.classList.toggle('show');
+            }
+        });
+
+        // Kliknutí mimo panel nebo na overlay zavře panel
+        document.addEventListener('click', function (e) {
+            if (
+                isMobile &&
+                !profilMain.contains(e.target) &&
+                !profPanelMobile.contains(e.target)
+            ) {
+                profPanelMobile.classList.remove('show');
+                profileOverlay.classList.remove('show');
+            }
+        });
+        // Kliknutí na overlay zavře panel
+        profileOverlay.addEventListener('click', function () {
+            profPanelMobile.classList.remove('show');
+            profileOverlay.classList.remove('show');
+        });
+    });
+</script>
 </body>
 </html>

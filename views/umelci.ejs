@@ -51,6 +51,23 @@
         <a href="/kontakt" class="text-decoration-none">Kontakt</a>
     </div>
 
+    <!-- Panel pod headerem pro mobilní zobrazení -->
+    <div id="profPanelMobile" class="profMobilePanel">
+        <h4><% if (name) { %>
+                <%= name %>
+            <% } else { %>
+                Uživatel
+            <% } %>
+        </h4>
+        <a href="/profil"><% if (name) { %>
+            Profil
+        <% } else { %>
+            Přihlásit se
+        <% } %></a>
+    </div>
+    <!-- Overlay pro zatemnění -->
+    <div id="profileOverlay" class="profile-overlay"></div>
+
     <main class="container mt-5 pt-5">
         <h1 class="text-center mb-5">Seznam umělců</h1>
         <div class="row">
@@ -84,5 +101,48 @@
             document.getElementById("sidebar").style.width = "0";
         }
     </script>
+    <script>
+    // Mobilní rozbalení profilu pod headerem + overlay
+    document.addEventListener('DOMContentLoaded', function () {
+        const profilMain = document.getElementById('profilMain');
+        const profPanelMobile = document.getElementById('profPanelMobile');
+        const profileOverlay = document.getElementById('profileOverlay');
+        let isMobile = window.innerWidth < 950;
+
+        function updateMobileFlag() {
+            isMobile = window.innerWidth < 950;
+            if (!isMobile) {
+                profPanelMobile.classList.remove('show');
+                profileOverlay.classList.remove('show');
+            }
+        }
+        window.addEventListener('resize', updateMobileFlag);
+
+        profilMain.addEventListener('click', function (e) {
+            if (isMobile) {
+                e.preventDefault();
+                profPanelMobile.classList.toggle('show');
+                profileOverlay.classList.toggle('show');
+            }
+        });
+
+        // Kliknutí mimo panel nebo na overlay zavře panel
+        document.addEventListener('click', function (e) {
+            if (
+                isMobile &&
+                !profilMain.contains(e.target) &&
+                !profPanelMobile.contains(e.target)
+            ) {
+                profPanelMobile.classList.remove('show');
+                profileOverlay.classList.remove('show');
+            }
+        });
+        // Kliknutí na overlay zavře panel
+        profileOverlay.addEventListener('click', function () {
+            profPanelMobile.classList.remove('show');
+            profileOverlay.classList.remove('show');
+        });
+    });
+</script>
 </body>
 </html>

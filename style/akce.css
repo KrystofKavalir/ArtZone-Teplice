@@ -155,3 +155,182 @@ body {
     margin: 0;
     padding: 0;
 }
+
+/* Overlay pro zatemnění pozadí při otevřeném profilu na mobilu */
+.profile-overlay {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    transition: 0.3s;
+}
+.profile-overlay.show {
+    display: block;
+}
+
+/* Panel profilu na mobilu zarovnaný vpravo a s max šířkou */
+.profMobilePanel {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 70px; /* pod headerem */
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    z-index: 100;
+    padding: 20px 30px;
+    text-align: left;
+    transition: 0.3s;
+    width: 100%;
+    max-width: 350px;
+    min-width: 180px;
+    box-sizing: border-box;
+}
+.profMobilePanel.show {
+    display: block;
+    animation: fadeInDown 0.3s;
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Skryj .prof v .profilMain na mobilech */
+@media (max-width: 950px) {
+    .profilMain {
+        width: 2cm !important;
+        height: 2cm !important;
+        background: white;
+        border-radius: 100px;
+        overflow: visible;
+        cursor: pointer;
+    }
+    .profilMain .prof {
+        display: none !important;
+    }
+    .profMobilePanel {
+        display: none;
+    }
+    .profMobilePanel.show {
+        display: block;
+    }
+}
+
+/* Sidebar a menu na mobilech */
+@media (max-width: 950px) {
+    .navBar {
+        display: none !important;
+    }
+    .openbtn {
+        display: block !important;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+        z-index: 10;
+    }
+    .sidebar {
+        width: 0;
+        transition: 0.5s;
+    }
+}
+
+/* Oprava hlavního kontejneru pro menší zařízení */
+.akce-detail-container {
+    box-sizing: border-box;
+    word-break: break-word;
+}
+
+@media (max-width: 1000px) {
+    .akce-detail-container {
+        max-width: 98vw;
+        padding: 1.5rem 0.7rem;
+        border-radius: 1.5rem;
+    }
+}
+@media (max-width: 600px) {
+    .akce-detail-container {
+        margin-top: 1.5rem;
+        padding: 0.7rem 0.2rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        gap: 0.7rem;
+    }
+    .akce-detail-container h1 {
+        font-size: 1.3rem;
+        word-break: break-word;
+    }
+    .akce-detail-label {
+        font-size: 1rem;
+    }
+    .akce-detail-value {
+        font-size: 0.97rem;
+    }
+}
+
+/* Zobraz openbtn na mobilech */
+.openbtn {
+    display: none;
+}
+@media (max-width: 950px) {
+    .openbtn {
+        display: block;
+    }
+}
+
+.akce-detail-container * {
+    box-sizing: border-box;
+}
+
+/* Přizpůsobení headeru a loga na mobilech */
+@media (max-width: 600px) {
+    #header {
+        padding: 0 6px;
+        min-height: 48px;
+        height: 56px;
+    }
+    .logo {
+        width: 1.2cm;
+        min-width: 32px;
+        margin-right: 4px;
+    }
+    .profilMain {
+        width: 1.2cm !important;
+        height: 1.2cm !important;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    .profPic {
+        width: 1.2cm !important;
+        height: 1.2cm !important;
+        min-width: 32px;
+        min-height: 32px;
+    }
+}
+
+/* Pro jistotu i pro tablety */
+@media (max-width: 950px) {
+    #header {
+        padding: 0 10px;
+        min-height: 56px;
+        height: 64px;
+    }
+    .logo {
+        width: 1.8cm;
+        min-width: 40px;
+        margin-right: 6px;
+    }
+    .profilMain {
+        width: 1.8cm !important;
+        height: 1.8cm !important;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    .profPic {
+        width: 1.8cm !important;
+        height: 1.8cm !important;
+        min-width: 40px;
+        min-height: 40px;
+    }
+}

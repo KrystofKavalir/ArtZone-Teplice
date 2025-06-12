@@ -33,10 +33,11 @@
         <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
         <!-- pujde do vsech souboru -->
 
-        <div class="profilMain w3-display-right">
-            <div class="profPic profPicB w3-display-right"><img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=""></div>
-
-            <div class="prof">
+        <div class="profilMain w3-display-right" id="profilMain">
+            <div class="profPic profPicB w3-display-right">
+                <img class="profPic w3-circle" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt="">
+            </div>
+            <div class="prof" id="profPanel">
                 <h4><% if (name) { %>
                         <%= name %>
                     <% } else { %>
@@ -50,7 +51,22 @@
                 <% } %></a>
             </div>
         </div>
-
+        <!-- Overlay pro zatemnění -->
+        <div id="profileOverlay" class="profile-overlay"></div>
+        <!-- Panel pod headerem pro mobilní zobrazení -->
+        <div id="profPanelMobile" class="profMobilePanel">
+            <h4><% if (name) { %>
+                    <%= name %>
+                <% } else { %>
+                    Uživatel
+                <% } %>
+            </h4>
+            <a href="/profil"><% if (name) { %>
+                Profil
+            <% } else { %>
+                Přihlásit se
+            <% } %></a>
+        </div>
         <!-- konec -->
     </header>
 
@@ -62,7 +78,7 @@
         <a href="/kontakt">Kontakt</a>
     </div>
 
-    <div class="text-center mt-5 mainText">
+    <div class="text-center mainText pt-3 pt-md-3 pt-lg-3" style="padding-top: 50px;">
         <h2 class="display-5">Vítejte na stránkách projektu</h2>
         <h1 class="display-1"><span class="text-success">A</span>rt<span class="text-danger">Z</span>one <span class="text-primary">T</span>eplice!</h1>
     </div>
@@ -150,4 +166,59 @@
     border-radius: 2rem !important;
     background: #fff;
 }
+
+.mainText {
+    padding-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .mainText {
+        padding-top: 0 !important;
+    }
+}
 </style>
+
+<script>
+    // filepath: d:\ArtZone Teplice\ArtZone-Teplice\views\index.ejs
+    // Mobilní rozbalení profilu pod headerem + overlay
+    document.addEventListener('DOMContentLoaded', function () {
+        const profilMain = document.getElementById('profilMain');
+        const profPanelMobile = document.getElementById('profPanelMobile');
+        const profileOverlay = document.getElementById('profileOverlay');
+        let isMobile = window.innerWidth < 950;
+
+        function updateMobileFlag() {
+            isMobile = window.innerWidth < 950;
+            if (!isMobile) {
+                profPanelMobile.classList.remove('show');
+                profileOverlay.classList.remove('show');
+            }
+        }
+        window.addEventListener('resize', updateMobileFlag);
+
+        profilMain.addEventListener('click', function (e) {
+            if (isMobile) {
+                e.preventDefault();
+                profPanelMobile.classList.toggle('show');
+                profileOverlay.classList.toggle('show');
+            }
+        });
+
+        // Kliknutí mimo panel nebo na overlay zavře panel
+        document.addEventListener('click', function (e) {
+            if (
+                isMobile &&
+                !profilMain.contains(e.target) &&
+                !profPanelMobile.contains(e.target)
+            ) {
+                profPanelMobile.classList.remove('show');
+                profileOverlay.classList.remove('show');
+            }
+        });
+        // Kliknutí na overlay zavře panel
+        profileOverlay.addEventListener('click', function () {
+            profPanelMobile.classList.remove('show');
+            profileOverlay.classList.remove('show');
+        });
+    });
+</script>
